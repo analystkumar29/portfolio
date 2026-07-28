@@ -55,8 +55,7 @@ export function WorkShowcase() {
               {isCustomer && project.evidence ? (
                 <BrowserFrame
                   domain={project.domain}
-                  src={project.evidence.src}
-                  alt={project.evidence.alt}
+                  shot={project.evidence}
                   priority={i === 0}
                   animate
                 />

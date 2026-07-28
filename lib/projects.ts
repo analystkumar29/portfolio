@@ -11,6 +11,14 @@ export type Step = { label: string; note?: string };
 
 export type Decision = { title: string; body: string };
 
+export type Shot = {
+  src: string;
+  alt: string;
+  caption: string;
+  width: number;
+  height: number;
+};
+
 export type Project = {
   slug: string;
   index: string;
@@ -19,6 +27,10 @@ export type Project = {
   url: string;
   category: string;
   live: boolean;
+  /** Own product vs client work — the single most useful framing for both audiences. */
+  ownership: "Own product" | "Client work";
+  /** Exact scope, in Manoj's words. No inflated titles. */
+  role: string;
   /** One-sentence outcome — case-study section 1. */
   outcome: string;
   /** Short form used on the home page and the work index. */
@@ -43,7 +55,9 @@ export type Project = {
   validation: string[];
   /** What I would improve next — section 9. */
   next: string;
-  evidence: { src: string; alt: string; caption: string } | null;
+  evidence: Shot | null;
+  /** Additional annotated evidence, shown as a gallery on the case study. */
+  gallery: Shot[];
   links: { label: string; href: string }[];
   /** Items needing Manoj's confirmation before this page is promoted. */
   review: string[];
@@ -58,6 +72,8 @@ export const PROJECTS: Project[] = [
     url: "https://www.travelling-technicians.ca/",
     category: "Field-service platform",
     live: true,
+    ownership: "Own product",
+    role: "Everything: idea, product, design, database, SEO system, booking and payments, admin and technician tooling, the AI agents, and the maintenance since.",
     outcome:
       "A doorstep repair service that can be found, booked, tracked and followed up — without anyone chasing a phone call.",
     teaser:
@@ -65,7 +81,7 @@ export const PROJECTS: Project[] = [
     problem:
       "A mobile repair business competes against every shop with a storefront and a Google listing. To be found at all, you need a page for the exact thing someone typed — \"iPhone 14 screen repair in Surrey\" — and there are thousands of those combinations. Writing them by hand is impossible, and generating them badly is worse than not having them. Then the harder half starts: a booking has to reach a technician, the customer has to know what it costs before they commit, and somebody has to issue the warranty and collect the review without retyping anything.",
     built:
-      "Three machines that feed each other. An SEO page factory generates roughly 5,000 static pages from one catch-all template and a routes table in Postgres. A booking engine takes a three-step booking, prices it from a three-tier model, and settles it through Stripe. An operations layer gives staff a real-time admin surface and technicians a PWA where they claim jobs — with an AI chat assistant and an AI phone receptionist calling the same database tools the admin runs on.",
+      "Three machines that feed each other. An SEO page factory turns a routes table in Postgres into roughly 9,000 addressable pages from a single catch-all template — about 5,000 prebuilt at deploy time and 6,000 published in the sitemap, with the rest rendering on first request and caching. A booking engine takes a three-step booking, prices it from a three-tier model, and settles it through Stripe. An operations layer gives staff a real-time admin surface and technicians a PWA where they claim jobs — with an AI chat assistant and an AI phone receptionist calling the same database tools the admin runs on.",
     customerJourney: [
       { label: "Find the local page", note: "city × service × device" },
       { label: "Price + warranty", note: "before committing" },
@@ -98,7 +114,15 @@ export const PROJECTS: Project[] = [
       },
       {
         title: "The assistants get tools, not a script",
-        body: "The chat assistant and the phone receptionist both call the live database — real prices, real coverage, real availability. An assistant that can only apologise and take a message is a more expensive contact form. These can quote a price at 11pm and create the booking.",
+        body: "The chat assistant and the phone receptionist both call the live database — real prices, real coverage, real availability — and the assistant knows which page it was opened from, so on the warranty page it opens by offering a warranty lookup. An assistant that can only apologise and take a message is a more expensive contact form. These can quote a price at 11pm and create the booking.",
+      },
+      {
+        title: "Answer \u201cdo you even come here\u201d before anything else",
+        body: "The first interaction on the homepage is a postal code check, and every generated city page lists the postal codes it actually serves. Telling someone you don\u2019t cover them in five seconds is a better experience than taking their booking and cancelling it, and it keeps the operations side clean — no bookings that have to be unwound by a human.",
+      },
+      {
+        title: "Three price tiers, because \u201chow much\u201d has more than one honest answer",
+        body: "Value, Recommended and Premium carry different parts and different warranty lengths, up to twelve months. A single price would either lose the budget customer or under-serve the one who wants the better screen. The tier chosen in step one of the booking is the same number that reaches Stripe, the invoice and the warranty record.",
       },
     ],
     stack: [
@@ -111,30 +135,66 @@ export const PROJECTS: Project[] = [
       "Technician PWA",
     ],
     metrics: [
-      { value: "~5,000", label: "static pages generated at build", source: "repo" },
-      { value: "5", label: "route types from one template", source: "repo" },
+      { value: "8,948", label: "routes in the live index queue", source: "index run, Jul 2026" },
+      { value: "6,000", label: "URLs published in the sitemap", source: "live sitemap" },
       { value: "86 / 57 / 12", label: "tables, triggers, views in migrations", source: "repo" },
       { value: "4.8 ★", label: "from 57 verified reviews", source: "live site" },
     ],
     validation: [
       "Live across 13 service-area cities in the Lower Mainland.",
+      "Five route types — city, city+model, city+service, city+service+model, neighbourhood — all served from one template file.",
       "Booking, payment, warranty and review all run without a manual retype step.",
       "Structured FAQ data on roughly 3,300 pages for rich-result eligibility.",
+      "Warranty coverage is self-serve: a customer can check it months later with a warranty number or booking reference, with no account.",
+      "Payments run through Stripe with pay-later links, and Affirm, Klarna and Afterpay offered at checkout.",
       "Still maintained by me — the pricing, the routes and the agents are mine to keep honest.",
     ],
     next:
-      "The build takes 90+ seconds because all ~5,000 pages render up front. Moving the long tail to on-demand generation and keeping only the high-intent routes prebuilt would cut that sharply — worth doing before the route table grows again.",
+      "The build takes 90+ seconds because ~5,000 pages render up front. Pushing more of the long tail to on-demand generation and prebuilding only the high-intent routes would cut that sharply — worth doing before the route table grows again.",
     evidence: {
-      src: "/evidence/travelling-technicians-home.jpg",
-      alt: "The Travelling Technicians homepage: doorstep phone and MacBook repair, with a postal-code serviceability check.",
+      src: "/evidence/tt-home.jpg",
+      width: 1568,
+      height: 667,
+      alt: "The Travelling Technicians homepage: doorstep phone and MacBook repair, with repair time, warranty and rating, and a postal-code serviceability check.",
       caption:
-        "The homepage leads with price confidence and a coverage check, not a contact form. Captured July 2026.",
+        "Repair time, warranty length and rating sit above the fold, and the first interaction is \u201cdo we cover you\u201d \u2014 not a contact form.",
     },
-    links: [{ label: "Visit travelling-technicians.ca", href: "https://www.travelling-technicians.ca/" }],
-    review: [
-      "The current portfolio copy says \"~9,000 SEO pages\"; the repo's own documentation says ~5,000. I have used 5,000. Confirm which is right before this goes in front of an employer.",
-      "Confirm the client is comfortable with a homepage screenshot and the 4.8★ / 57-review figure being reproduced here.",
+    gallery: [
+      {
+        src: "/evidence/tt-seo-page.jpg",
+        width: 1470,
+        height: 745,
+        alt: "Generated page for screen replacement in Burnaby, showing a from-price, warranty, and the postal codes served.",
+        caption:
+          "One of ~9,000 generated pages: city \u00d7 service \u00d7 device, with a from-price, the warranty, and the actual postal codes covered. Every one of these is a row in the routes table, not a file.",
+      },
+      {
+        src: "/evidence/tt-booking.jpg",
+        width: 1470,
+        height: 745,
+        alt: "The booking flow at step 1 of 3, showing device, contact and schedule steps.",
+        caption:
+          "Three steps, with progress shown and the next step named. The device choice determines the price tier that later becomes the Stripe charge, the invoice and the warranty.",
+      },
+      {
+        src: "/evidence/tt-assistant.jpg",
+        width: 1470,
+        height: 745,
+        alt: "The AI assistant open on the warranty page, offering to look up a warranty by number or booking reference.",
+        caption:
+          "The assistant knows which page it was opened on. On the warranty page it opens by offering a lookup and naming the two reference formats \u2014 because it is calling the same database the admin runs on.",
+      },
+      {
+        src: "/evidence/tt-warranty.jpg",
+        width: 1470,
+        height: 745,
+        alt: "The warranty status page, accepting either a warranty number or a booking reference plus email.",
+        caption:
+          "Warranties are records, not PDFs in an inbox. A customer can check coverage months later with the reference they were emailed \u2014 no account, no phone call.",
+      },
     ],
+    links: [{ label: "Visit travelling-technicians.ca", href: "https://www.travelling-technicians.ca/" }],
+    review: [],
   },
   {
     slug: "immigration-timeline",
@@ -144,6 +204,8 @@ export const PROJECTS: Project[] = [
     url: "https://www.immigrationtimeline.ca/",
     category: "Privacy-led data product",
     live: true,
+    ownership: "Own product",
+    role: "Idea to production, solo — the concept, the data model, the ingestion, the privacy thresholds, the prediction work, the interface and the deployment.",
     outcome:
       "A prediction product that is careful about what it doesn't know — and says so.",
     teaser:
@@ -188,36 +250,91 @@ export const PROJECTS: Project[] = [
     stack: [
       "Next.js",
       "Supabase / PostgreSQL",
+      "Kaplan–Meier survival estimates",
       "Aggregate RPCs with k-anonymity enforced",
       "Passwordless email sign-in",
+      "Cloudflare Turnstile",
       "Published methodology page",
     ],
     metrics: [
-      { value: "≥ 25", label: "k-anonymity floor on every aggregate", source: "repo + live site" },
-      { value: "2", label: "streams with enough data to publish", source: "live site" },
+      { value: "126,953", label: "recorded stage transitions behind the model", source: "methodology page" },
+      { value: "≥ 25", label: "weighted cases before anything is published", source: "repo + live site" },
+      { value: "22 Jul 2026", label: "last trained, stated on the page", source: "methodology page" },
       { value: "0", label: "passwords stored", source: "repo" },
     ],
     validation: [
-      "Live, with the aggregation floor stated publicly on the sign-in page.",
+      "Live, with the aggregation floor stated publicly on the sign-in page and again in the methodology.",
       "Express Entry and spousal sponsorship are the only streams published — the ones with enough reported timelines to be defensible.",
-      "Predictions are measured against real outcomes, including the stages that have never been checkable.",
+      "Every published row carries its own range and sample size, and stages the model has never been able to score are labelled as such.",
+      "The methodology page states that today's model was built from a pre-launch community corpus, not from the site's own users — and says it will change when that changes.",
     ],
     next:
       "The honest gap is coverage: two streams are published because the rest are too thin. More reported timelines is the only fix, and getting them without resorting to the engagement mechanics the product deliberately avoids is the actual design problem.",
     evidence: {
-      src: "/evidence/immigration-timeline-home.jpg",
-      alt: "The Immigration Timeline sign-in page, stating that no figure is computed below 25 people.",
+      src: "/evidence/it-timeline.jpg",
+      width: 1547,
+      height: 784,
+      alt: "The signed-in timeline: queue position, two disagreeing completion estimates with an explanation, and the applicant\u2019s logged milestones.",
       caption:
-        "The privacy rules are on the sign-in page, before you hand over anything. Captured July 2026.",
+        "The signed-in product, on a test file. Two estimates are shown side by side precisely because they disagree \u2014 and the page explains why rather than picking the friendlier one.",
     },
+    gallery: [
+      {
+        src: "/evidence/it-two-estimates.png",
+        width: 1294,
+        height: 636,
+        alt: "Close-up: IRCC projects March 2027, applicants report December 2026, with a caution that the second comes from a stage the model has never been scored against.",
+        caption:
+          "This is the whole product in one card. Most trackers would show one date. This shows both, says they measure different things, and then warns that the more optimistic one comes from a stage the model has never been able to check \u2014 \u201ctreat it as the optimistic end, not a plan.\u201d",
+      },
+      {
+        src: "/evidence/it-quiet-day.png",
+        width: 1294,
+        height: 256,
+        alt: "The Today view reading: Nothing moved on your file. Most days read like this. A quiet day is not a delay.",
+        caption:
+          "The daily view, on a day when nothing happened \u2014 which is most days. Every engagement instinct says manufacture movement here. Telling an anxious person that a quiet day is normal is worth more than a streak counter.",
+      },
+      {
+        src: "/evidence/it-not-counted.png",
+        width: 1294,
+        height: 380,
+        alt: "In-product notice explaining that comparisons switch on only once 25 other people in the same month have reported.",
+        caption:
+          "The privacy floor explained to the user, in the product, at the moment it affects them: comparisons switch on once 25 others in the same cohort have reported, because below that a figure could describe a person. Note the footer link \u2014 \u201cHow wrong we have been.\u201d",
+      },
+      {
+        src: "/evidence/it-spousal.jpg",
+        width: 1547,
+        height: 784,
+        alt: "The public spousal sponsorship timeline page, showing IRCC official estimates beside stage-by-stage reported figures with ranges and sample sizes.",
+        caption:
+          "The public pages do the same job without an account: IRCC\u2019s number, then what applicants reported at each stage, each row carrying its range and its sample size.",
+      },
+      {
+        src: "/evidence/it-methodology.jpg",
+        width: 1547,
+        height: 784,
+        alt: "The methodology page explaining corpus size, training date, Kaplan-Meier quantiles and the 25-case publication floor.",
+        caption:
+          "The methodology page publishes the model\u2019s error whether or not it flatters the product: 126,953 recorded stage transitions, last trained 22 July 2026, Kaplan\u2013Meier quantiles weighted so unfinished cases still count, and a stated floor of 25 weighted cases.",
+      },
+      {
+        src: "/evidence/it-express-entry.jpg",
+        width: 1547,
+        height: 784,
+        alt: "The Express Entry timeline page showing IRCC estimates and reported stage data with sample sizes.",
+        caption:
+          "Fewer stages appear on the Express Entry page than the spousal one \u2014 not a design choice, but the publication floor doing its job.",
+      },
+    ],
     links: [
       { label: "Visit immigrationtimeline.ca", href: "https://www.immigrationtimeline.ca/" },
       { label: "Read the methodology", href: "https://www.immigrationtimeline.ca/methodology" },
     ],
     review: [
-      "State your exact role here in one line — product, UX, frontend, data model, ingestion, analysis, deployment, or all of it. The brief flags this as the one project where an inflated scope claim would be most damaging.",
-      "The previous version of this page cited \"126,953 reported timelines\" and a training date. I have left both out until you confirm the figure and that you may publish it.",
-      "The live product is now branded IRCC Tracker. Decide which name this case study should use.",
+      "The live product is branded IRCC Tracker while this case study and the domain say Immigration Timeline. Pick one name, or say plainly that the product is IRCC Tracker at immigrationtimeline.ca.",
+      "If you want the \"126,953 reported timelines\" figure and the model training date back on this page, give me the current numbers and I'll add them with a stated as-of date.",
     ],
   },
   {
@@ -228,6 +345,8 @@ export const PROJECTS: Project[] = [
     url: "https://www.indianburgerjoint.com/",
     category: "Multi-location brand platform",
     live: true,
+    ownership: "Client work",
+    role: "Client project — website, brand system, location architecture and the franchise funnel. TODO: tighten this line to your exact scope.",
     outcome:
       "One brand, two funnels: tonight's order and next year's franchise partner.",
     teaser:
@@ -285,18 +404,37 @@ export const PROJECTS: Project[] = [
     next:
       "The franchise funnel ends at an information-pack request, which is a lead but not a qualified one. A short structured intake — capital, territory, timeline — would let the client spend their follow-up time on the applicants worth calling.",
     evidence: {
-      src: "/evidence/indian-burger-joint-home.jpg",
-      alt: "The Indian Burger Joint homepage: a dark, food-led hero reading Authentic Indian Burgers.",
+      src: "/evidence/ibj-home.jpg",
+      width: 1470,
+      height: 745,
+      alt: "The Indian Burger Joint homepage: a flame-lit burger fills the screen beside the words Authentic Indian Burgers.",
       caption:
-        "The loudest thing on this site is the food, and that is the point. Captured July 2026.",
+        "The loudest thing I have built, and deliberately so. The food does the selling before a single word of explanation.",
     },
+    gallery: [
+      {
+        src: "/evidence/ibj-locations.jpg",
+        width: 1547,
+        height: 784,
+        alt: "The locations section, with a card per restaurant showing address, phone, today\u2019s hours and ordering options.",
+        caption:
+          "Each location carries its own address, phone, today\u2019s hours and ordering routes \u2014 dine-in, takeout, delivery, late night. Adding a restaurant is a content change, not a new page build.",
+      },
+      {
+        src: "/evidence/ibj-franchise.jpg",
+        width: 1547,
+        height: 784,
+        alt: "The franchise page: Join the Revolution, with Start Your Journey and Download Info Pack calls to action.",
+        caption:
+          "The franchise route is a separate page with its own pacing and its own two calls to action. A dinner order and a partnership enquiry never compete for the same button.",
+      },
+    ],
     links: [
       { label: "Visit indianburgerjoint.com", href: "https://www.indianburgerjoint.com/" },
       { label: "See the franchise funnel", href: "https://www.indianburgerjoint.com/franchise" },
     ],
     review: [
-      "This is the one project with no repository I could check, so its case study is written from what is publicly visible on the live site. Add the build details you own — CMS, ordering integration, who maintains it.",
-      "State your role and the client relationship. Confirm they are happy to be named and screenshotted.",
+      "This is the one project with no repository I could check, so its case study is written from what is publicly visible on the live site. Add the build details you own — CMS, ordering integration, who maintains it — and I'll fold them in.",
     ],
   },
   {
@@ -307,6 +445,8 @@ export const PROJECTS: Project[] = [
     url: "https://www.rabathrift.ca/",
     category: "Community retail & donation engine",
     live: true,
+    ownership: "Client work",
+    role: "Client project — website, Sanity content layer, per-city pickup pages and the donation intake flow.",
     outcome: "A thrift store's site that creates supply, not just store hours.",
     teaser:
       "Donation-first, with per-city pickup pages and phone, text and WhatsApp treated as real routes.",
@@ -365,15 +505,26 @@ export const PROJECTS: Project[] = [
     next:
       "Pickup requests are structured but not yet routed — batching them into a sensible route for a single van run is the next real operational saving, and it is a scheduling problem rather than a website one.",
     evidence: {
-      src: "/evidence/raba-thrift-home.jpg",
-      alt: "The Raba Thrift homepage: Discover Unique, Affordable Finds, with a Donate Today call to action.",
+      src: "/evidence/raba-home.jpg",
+      width: 1470,
+      height: 745,
+      alt: "The Raba Thrift homepage over a photo of the storefront, with Explore What We Carry and Donate Today side by side.",
       caption:
-        "Donating sits beside shopping in the hero, not below the opening hours. Captured July 2026.",
+        "Donate Today sits beside the shopping call to action in the hero, and the charities the store supports are named in the same breath \u2014 not buried in an About page.",
     },
+    gallery: [
+      {
+        src: "/evidence/raba-pickup.jpg",
+        width: 1547,
+        height: 784,
+        alt: "The free donation pickup page: Chilliwack to Abbotsford, seven days a week, with a three-step explanation of how pickup works.",
+        caption:
+          "The pickup page states the coverage, the cadence and the three steps up front \u2014 including that a human calls within 24 hours. Donors who will never fill in a form get a phone number in the header instead.",
+      },
+    ],
     links: [{ label: "Visit rabathrift.ca", href: "https://www.rabathrift.ca/" }],
     review: [
       "The brief noted the apex domain raba-thrift.ca did not resolve while www.rabathrift.ca was healthy. Worth fixing before this is linked from a portfolio.",
-      "Confirm the client is happy to be named and screenshotted.",
     ],
   },
 ];
@@ -387,10 +538,8 @@ export const SITE = {
   role: "Product & Automation Engineer",
   location: "Burnaby, British Columbia",
   email: "hello@manojkumar.ca",
-  /** TODO: replace with the real number — the design shipped with a placeholder. */
-  phone: "+1 604 000 0000",
-  phoneHref: "tel:+16040000000",
-  phoneIsPlaceholder: true,
+  phone: "+1 604 849 5329",
+  phoneHref: "tel:+16048495329",
   url: "https://portfolio-blue-three-62.vercel.app",
   description:
     "I build high-converting websites, customer-service automation, and practical internal workflows that help service businesses respond faster and operate with less manual work.",

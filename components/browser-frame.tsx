@@ -1,24 +1,29 @@
 import Image from "next/image";
+import type { Shot } from "@/lib/projects";
 
 /**
- * The customer side: a real screenshot of the live site in a browser chrome,
- * so the evidence reads as something that exists rather than a mockup.
+ * A screenshot of a live site in browser chrome, so the evidence reads as
+ * something that exists rather than a mockup.
+ *
+ * The image is rendered at its natural aspect ratio rather than cropped to a
+ * fixed frame — a cropped screenshot is worse than no screenshot, because the
+ * part that proves the point is usually the part that gets cut.
  */
 export function BrowserFrame({
   domain,
-  src,
-  alt,
+  shot,
   priority = false,
   animate = false,
+  sizes = "(max-width: 1024px) 100vw, 600px",
 }: {
   domain: string;
-  src: string;
-  alt: string;
+  shot: Shot;
   priority?: boolean;
   animate?: boolean;
+  sizes?: string;
 }) {
   return (
-    <figure
+    <div
       className={`border border-[#e0d9cc] rounded-[14px] overflow-hidden bg-white shadow-[0_1px_2px_rgba(26,24,20,0.04),0_22px_44px_-28px_rgba(26,24,20,0.4)] ${
         animate ? "animate-[layerIn_0.35s_ease_both]" : ""
       }`}
@@ -33,16 +38,15 @@ export function BrowserFrame({
           {domain}
         </span>
       </div>
-      <div className="relative aspect-16/10 bg-shot">
-        <Image
-          src={src}
-          alt={alt}
-          fill
-          sizes="(max-width: 1024px) 100vw, 600px"
-          className="object-cover object-top"
-          priority={priority}
-        />
-      </div>
-    </figure>
+      <Image
+        src={shot.src}
+        alt={shot.alt}
+        width={shot.width}
+        height={shot.height}
+        sizes={sizes}
+        className="block w-full h-auto bg-shot"
+        priority={priority}
+      />
+    </div>
   );
 }

@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { PROJECTS, projectBySlug } from "@/lib/projects";
 import { BrowserFrame } from "@/components/browser-frame";
 import { SystemMap } from "@/components/system-map";
+import { EvidenceGallery } from "@/components/evidence-gallery";
 import { Label, LiveDot, ReviewNote, Shell } from "@/components/ui";
 
 export function generateStaticParams() {
@@ -77,6 +78,21 @@ export default async function CaseStudy({
             {project.outcome}
           </p>
 
+          <dl className="flex flex-col sm:flex-row gap-x-10 gap-y-4 border-y border-line py-5 my-1">
+            <div className="flex flex-col gap-1 shrink-0">
+              <dt className="font-mono text-[10px] tracking-[0.13em] uppercase text-fainter">
+                Relationship
+              </dt>
+              <dd className="text-[15px] font-medium text-ink">{project.ownership}</dd>
+            </div>
+            <div className="flex flex-col gap-1">
+              <dt className="font-mono text-[10px] tracking-[0.13em] uppercase text-fainter">
+                My role
+              </dt>
+              <dd className="text-[15px] leading-[1.6] text-body">{project.role}</dd>
+            </div>
+          </dl>
+
           <div className="flex flex-wrap gap-4">
             {project.links.map((link) => (
               <a
@@ -128,16 +144,16 @@ export default async function CaseStudy({
           </section>
         </div>
 
-        {/* 6 — Selected evidence */}
+        {/* Lead evidence */}
         {project.evidence ? (
           <figure className="flex flex-col gap-3 pb-16">
             <BrowserFrame
               domain={project.domain}
-              src={project.evidence.src}
-              alt={project.evidence.alt}
+              shot={project.evidence}
               priority
+              sizes="(max-width: 1240px) 100vw, 1144px"
             />
-            <figcaption className="font-mono text-[11px] text-faint">
+            <figcaption className="font-mono text-[11px] leading-[1.6] text-faint">
               {project.evidence.caption}
             </figcaption>
           </figure>
@@ -227,6 +243,9 @@ export default async function CaseStudy({
           </ol>
         </Shell>
       </section>
+
+      {/* 6 — Selected evidence */}
+      <EvidenceGallery shots={project.gallery} domain={project.domain} />
 
       {/* 7 & 8 — Proof and validation */}
       <section className="pt-16 sm:pt-24">
