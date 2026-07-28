@@ -2,25 +2,44 @@
 
 Personal portfolio site: **Product & Automation Engineer for service businesses.**
 
-## What's here
+Built with Next.js 16 (App Router), React 19 and Tailwind CSS v4. Every route is
+prerendered as static HTML.
 
-| File | Purpose |
+## Routes
+
+| Route | What it does |
 | --- | --- |
-| `index.html` | The site — a single self-contained page |
-| `support.js` | Rendering runtime the page depends on |
-| `image-slot.js` | Image placeholder component used by the page |
-| `portfolio-project-requirements.md` | Strategy brief: positioning, project framing, content direction |
+| `/` | Positioning, the four systems with a customer/operator toggle, services, about, contact |
+| `/work` | Index of the four case studies |
+| `/work/[slug]` | A full case study per project (4 pages, statically generated) |
 
-## Running locally
+## Where the content lives
 
-Any static file server works, e.g.:
+All copy that describes a project lives in [`lib/projects.ts`](lib/projects.ts) — one
+typed `Project` object per case study. Editing that file changes the home page, the
+work index and the case study together, so the three can't drift apart.
+
+**Sourcing rule:** a claim only goes in if it is visible on the live site or
+verifiable in that project's own repository. Anything needing Manoj to confirm scope,
+permission or a number goes in the project's `review` array, which renders as a
+visible "Before this goes public" panel on the case study rather than being asserted
+quietly. Ship-blocking items should be cleared before the site is shared widely.
+
+## Evidence screenshots
+
+`public/evidence/*.jpg` are screenshots of the four live client sites, captured July
+2026. They go stale as clients rebrand, and publishing them assumes client
+permission — see each case study's `review` list.
+
+## Local development
 
 ```bash
-python3 -m http.server 8000
+npm install
+npm run dev     # http://localhost:3000
+npm run build   # production build
+npm run lint
 ```
 
-Then open http://localhost:8000.
+## Deployment
 
-## Deploying
-
-Deployed as a static site on Vercel. Pushes to `main` deploy automatically.
+Deployed on Vercel from `main`; pushes deploy automatically.

@@ -1,0 +1,104 @@
+@import "tailwindcss";
+
+@theme {
+  /* Surfaces — warm paper, so screenshots and evidence feel physical */
+  --color-canvas: #faf8f4;
+  --color-surface: #fffdf9;
+  --color-sunk: #f5f1e9;
+  --color-inset: #efe9df;
+  --color-chrome: #f4f0e9;
+  --color-shot: #f2eee7;
+
+  /* Ink */
+  --color-ink: #17150f;
+  --color-ink-soft: #332f28;
+  --color-body: #524c42;
+  --color-muted: #6c6557;
+  --color-faint: #7c7565;
+  --color-fainter: #8a8374;
+  --color-ghost: #9b9484;
+
+  /* Lines */
+  --color-line: #e8e2d6;
+  --color-line-soft: #ede7db;
+  --color-line-firm: #e2dacc;
+  --color-line-strong: #d6cdbc;
+
+  /* Rust — the one confident accent */
+  --color-accent: #b4562a;
+  --color-accent-deep: #8c4119;
+  --color-accent-line: #e0c9b8;
+
+  /* Operator green — the system side */
+  --color-live: #3e8d6b;
+  --color-operator: #2e6a55;
+  --color-operator-bright: #7fc0a4;
+
+  /* Dark panel, used for every operator-side surface */
+  --color-panel: #1c1a15;
+  --color-panel-line: #302d25;
+  --color-panel-rule: #343830;
+  --color-panel-chip: #232720;
+  --color-panel-chip-line: #3b463f;
+  --color-panel-text: #efeae0;
+  --color-panel-muted: #8d8778;
+
+  --font-serif: var(--font-newsreader), Georgia, serif;
+  --font-sans: var(--font-instrument), system-ui, -apple-system, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, monospace;
+
+  --animate-layer-in: layerIn 0.35s ease both;
+  --animate-live-pulse: livePulse 2.6s ease-in-out infinite;
+}
+
+@keyframes layerIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes livePulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.2;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-canvas);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-wrap: pretty;
+  line-height: 1.5;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
