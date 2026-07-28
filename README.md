@@ -31,6 +31,24 @@ quietly. Ship-blocking items should be cleared before the site is shared widely.
 2026. They go stale as clients rebrand, and publishing them assumes client
 permission — see each case study's `review` list.
 
+## Environment variables
+
+The contact form needs these to deliver. Without them the form refuses to submit and
+tells the visitor to email directly — it never pretends a message was delivered.
+
+| Variable | Required | What it does |
+| --- | --- | --- |
+| `RESEND_API_KEY` | yes | Sends the enquiry and the sender's confirmation |
+| `CONTACT_TO` | no | Where enquiries land (defaults to the site email) |
+| `CONTACT_FROM` | no | Sender address. Defaults to Resend's shared `onboarding@resend.dev`; switch to an address on your own verified domain once you have one |
+
+Add them without pasting secrets into a file:
+
+```bash
+vercel env add RESEND_API_KEY production --sensitive   # prompts for the value
+vercel env pull .env.local --yes                       # for local development
+```
+
 ## Local development
 
 ```bash

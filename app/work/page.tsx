@@ -3,16 +3,20 @@ import Link from "next/link";
 import { PROJECTS } from "@/lib/projects";
 import { BrowserFrame } from "@/components/browser-frame";
 import { Label, LiveDot, Shell } from "@/components/ui";
+import { workIndexSchema } from "@/lib/schema";
+import { JsonLd } from "@/components/json-ld";
 
 export const metadata: Metadata = {
   title: "Work",
   description:
     "Four live systems — a field-service platform, a privacy-led data product, a multi-location brand platform, and a community donation engine.",
+  alternates: { canonical: "/work" },
 };
 
 export default function WorkIndex() {
   return (
     <div className="pt-14 sm:pt-20">
+      <JsonLd data={workIndexSchema()} />
       <Shell>
         <div className="flex flex-col gap-5 max-w-[64ch]">
           <Label className="tracking-[0.14em]">Selected systems</Label>

@@ -10,6 +10,9 @@ import {
   Shell,
 } from "@/components/ui";
 import { SITE } from "@/lib/projects";
+import { homeSchema } from "@/lib/schema";
+import { JsonLd } from "@/components/json-ld";
+import { ContactForm } from "@/components/contact-form";
 
 const HANDOFF = [
   ["Fills in a form", "A job appears, assigned and dated"],
@@ -145,6 +148,8 @@ const BACKGROUND = [
 export default function Home() {
   return (
     <>
+      <JsonLd data={homeSchema()} />
+
       {/* Hero */}
       <header id="top" className="pt-14 sm:pt-20 pb-16 sm:pb-24">
         <Shell className="grid gap-10 lg:gap-16 lg:grid-cols-[1.05fr_1fr] items-center">
@@ -462,48 +467,52 @@ export default function Home() {
               person for.
             </p>
 
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 pt-9 mt-8 border-t border-line">
-              <div className="flex flex-col gap-1.5">
-                <Label className="tracking-[0.14em]">Email</Label>
-                <a
-                  href={`mailto:${SITE.email}`}
-                  className="text-[17px] text-accent hover:text-accent-deep w-fit"
-                >
-                  {SITE.email}
-                </a>
-                <p className="text-[13.5px] text-muted">
-                  Best for scoping a project or a role.
-                </p>
+            <div className="grid gap-10 lg:gap-14 lg:grid-cols-[1fr_1.1fr] pt-9 mt-8 border-t border-line">
+              <div className="flex flex-col gap-7">
+                <div className="flex flex-col gap-1.5">
+                  <Label className="tracking-[0.14em]">Email</Label>
+                  <a
+                    href={`mailto:${SITE.email}`}
+                    className="text-[17px] text-accent hover:text-accent-deep w-fit"
+                  >
+                    {SITE.email}
+                  </a>
+                  <p className="text-[13.5px] text-muted">
+                    Best for scoping a project or a role.
+                  </p>
+                </div>
+
+                <div className="flex flex-col gap-1.5">
+                  <Label className="tracking-[0.14em]">Call or text</Label>
+                  <a
+                    href={SITE.phoneHref}
+                    className="text-[17px] text-accent hover:text-accent-deep w-fit"
+                  >
+                    {SITE.phone}
+                  </a>
+                  <p className="text-[13.5px] text-muted">
+                    Text is fine, and usually faster.
+                  </p>
+                </div>
+
+                <div className="flex flex-col gap-1.5">
+                  <Label className="tracking-[0.14em]">Or start here</Label>
+                  <Link
+                    href="/work/travelling-technicians"
+                    className="text-[14.5px] text-body hover:text-accent w-fit"
+                  >
+                    Hiring? Open the flagship system map &rarr;
+                  </Link>
+                  <Link
+                    href="#services"
+                    className="text-[14.5px] text-body hover:text-accent w-fit"
+                  >
+                    Running a business? See the four lanes &rarr;
+                  </Link>
+                </div>
               </div>
 
-              <div className="flex flex-col gap-1.5">
-                <Label className="tracking-[0.14em]">Call or text</Label>
-                <a
-                  href={SITE.phoneHref}
-                  className="text-[17px] text-accent hover:text-accent-deep w-fit"
-                >
-                  {SITE.phone}
-                </a>
-                <p className="text-[13.5px] text-muted">
-                  Text is fine, and usually faster.
-                </p>
-              </div>
-
-              <div className="flex flex-col gap-1.5">
-                <Label className="tracking-[0.14em]">Or start here</Label>
-                <Link
-                  href="/work/travelling-technicians"
-                  className="text-[14.5px] text-body hover:text-accent w-fit"
-                >
-                  Hiring? Open the flagship system map →
-                </Link>
-                <Link
-                  href="#services"
-                  className="text-[14.5px] text-body hover:text-accent w-fit"
-                >
-                  Running a business? See the four lanes →
-                </Link>
-              </div>
+              <ContactForm />
             </div>
           </div>
         </Shell>

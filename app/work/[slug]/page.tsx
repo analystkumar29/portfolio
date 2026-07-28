@@ -7,6 +7,8 @@ import { SystemMap } from "@/components/system-map";
 import { EvidenceGallery } from "@/components/evidence-gallery";
 import { TTArchitecture } from "@/components/tt-architecture";
 import { Label, LiveDot, ReviewNote, Shell } from "@/components/ui";
+import { caseStudySchema } from "@/lib/schema";
+import { JsonLd } from "@/components/json-ld";
 
 export function generateStaticParams() {
   return PROJECTS.map((project) => ({ slug: project.slug }));
@@ -24,6 +26,7 @@ export async function generateMetadata({
   return {
     title: `${project.name} — case study`,
     description: project.outcome,
+    alternates: { canonical: `/work/${project.slug}` },
     openGraph: {
       title: `${project.name} — ${project.category}`,
       description: project.outcome,
@@ -46,6 +49,8 @@ export default async function CaseStudy({
 
   return (
     <article className="pt-12 sm:pt-16">
+      <JsonLd data={caseStudySchema(project)} />
+
       {/* 1 — One-sentence outcome */}
       <Shell>
         <Link
