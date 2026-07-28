@@ -5,6 +5,7 @@ import { PROJECTS, projectBySlug } from "@/lib/projects";
 import { BrowserFrame } from "@/components/browser-frame";
 import { SystemMap } from "@/components/system-map";
 import { EvidenceGallery } from "@/components/evidence-gallery";
+import { TTArchitecture } from "@/components/tt-architecture";
 import { Label, LiveDot, ReviewNote, Shell } from "@/components/ui";
 
 export function generateStaticParams() {
@@ -243,6 +244,9 @@ export default async function CaseStudy({
           </ol>
         </Shell>
       </section>
+
+      {/* The flagship gets a drawn system map — it is the one with a system worth drawing. */}
+      {project.slug === "travelling-technicians" ? <TTArchitecture /> : null}
 
       {/* 6 — Selected evidence */}
       <EvidenceGallery shots={project.gallery} domain={project.domain} />
