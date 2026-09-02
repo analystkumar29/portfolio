@@ -3,7 +3,7 @@
 Personal portfolio site: **Product & Automation Engineer for service businesses.**
 
 Built with Next.js 16 (App Router), React 19 and Tailwind CSS v4. Every route is
-prerendered as static HTML.
+prerendered as static HTML except `/resume`, which checks for the PDF at request time.
 
 ## Routes
 
@@ -27,9 +27,9 @@ traced back to where it came from.
 
 ## Evidence screenshots
 
-`public/evidence/*.jpg` are screenshots of the four live client sites, captured July
-2026. They go stale as clients rebrand, and publishing them assumes client
-permission — see each case study's `review` list.
+`public/evidence/*.jpg` and `*.png` are screenshots of the four live sites, captured
+July 2026. They go stale as the sites change, and publishing shots of client work
+assumes the client is happy for it to be shown.
 
 ## Environment variables
 
