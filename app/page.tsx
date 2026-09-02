@@ -13,7 +13,6 @@ import {
 import { gmailComposeUrl, SITE } from "@/lib/projects";
 import { homeSchema } from "@/lib/schema";
 import { JsonLd } from "@/components/json-ld";
-import { ContactForm } from "@/components/contact-form";
 
 const PROOF_CHIPS = [
   "Booking & service operations",
@@ -534,38 +533,33 @@ export default function Home() {
                   </Link>
                 </div>
               </div>
-
-              {process.env.RESEND_API_KEY ? (
-                <ContactForm />
-              ) : (
-                <div className="border border-line rounded-2xl bg-surface p-6 sm:p-8 flex flex-col items-start gap-4">
-                  <Label tone="accent" className="tracking-[0.14em]">
-                    The fastest route
-                  </Label>
-                  <p className="font-serif text-[clamp(22px,2.4vw,30px)] leading-[1.25] text-ink text-balance">
-                    Email or text me directly.
-                  </p>
-                  <p className="text-[15px] leading-[1.65] text-body max-w-[45ch]">
-                    Whether you&rsquo;re hiring or have a project in mind, a few lines
-                    about the role or the problem is plenty. I read every message
-                    myself.
-                  </p>
-                  <a
-                    href={gmailComposeUrl()}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2.5 bg-ink text-canvas text-[15px] font-medium px-[22px] py-[13px] rounded-full transition-colors hover:bg-accent"
-                  >
-                    Email Manoj
-                    <span aria-hidden="true" className="font-mono text-[13px]">
-                      →
-                    </span>
-                  </a>
-                  <p className="font-mono text-[10.5px] tracking-[0.06em] text-faint">
-                    {SITE.email} · {SITE.phone}
-                  </p>
-                </div>
-              )}
+              <div className="border border-line rounded-2xl bg-surface p-6 sm:p-8 flex flex-col items-start gap-4">
+                <Label tone="accent" className="tracking-[0.14em]">
+                  The fastest route
+                </Label>
+                <p className="font-serif text-[clamp(22px,2.4vw,30px)] leading-[1.25] text-ink text-balance">
+                  Email or text me directly.
+                </p>
+                <p className="text-[15px] leading-[1.65] text-body max-w-[45ch]">
+                  Whether you&rsquo;re hiring or have a project in mind, a few lines
+                  about the role or the problem is plenty. I read every message
+                  myself.
+                </p>
+                <a
+                  href={gmailComposeUrl()}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2.5 bg-ink text-canvas text-[15px] font-medium px-[22px] py-[13px] rounded-full transition-colors hover:bg-accent"
+                >
+                  Email Manoj
+                  <span aria-hidden="true" className="font-mono text-[13px]">
+                    →
+                  </span>
+                </a>
+                <p className="font-mono text-[10.5px] tracking-[0.06em] text-faint">
+                  {SITE.email} · {SITE.phone}
+                </p>
+              </div>
             </div>
           </div>
         </Shell>

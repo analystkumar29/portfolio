@@ -10,6 +10,7 @@ prerendered as static HTML.
 | Route | What it does |
 | --- | --- |
 | `/` | Positioning, the four systems with a customer/operator toggle, services, about, contact |
+| `/resume` | Serves the résumé PDF if one is present, otherwise a request-by-email panel |
 | `/work` | Index of the four case studies |
 | `/work/[slug]` | A full case study per project (4 pages, statically generated) |
 
@@ -20,10 +21,9 @@ typed `Project` object per case study. Editing that file changes the home page, 
 work index and the case study together, so the three can't drift apart.
 
 **Sourcing rule:** a claim only goes in if it is visible on the live site or
-verifiable in that project's own repository. Anything needing Manoj to confirm scope,
-permission or a number goes in the project's `review` array, which renders as a
-visible "Before this goes public" panel on the case study rather than being asserted
-quietly. Ship-blocking items should be cleared before the site is shared widely.
+verifiable in that project's own repository. Numbers carry a `source` string that
+renders under them on the case study, so anything asserted on the page can be
+traced back to where it came from.
 
 ## Evidence screenshots
 
@@ -33,21 +33,8 @@ permission — see each case study's `review` list.
 
 ## Environment variables
 
-The contact form needs these to deliver. Without them the form refuses to submit and
-tells the visitor to email directly — it never pretends a message was delivered.
-
-| Variable | Required | What it does |
-| --- | --- | --- |
-| `RESEND_API_KEY` | yes | Sends the enquiry and the sender's confirmation |
-| `CONTACT_TO` | no | Where enquiries land (defaults to the site email) |
-| `CONTACT_FROM` | no | Sender address. Defaults to Resend's shared `onboarding@resend.dev`; switch to an address on your own verified domain once you have one |
-
-Add them without pasting secrets into a file:
-
-```bash
-vercel env add RESEND_API_KEY production --sensitive   # prompts for the value
-vercel env pull .env.local --yes                       # for local development
-```
+None. The site is fully static and has no server-side secrets — contact runs
+through email and phone links, not a form that needs a delivery provider.
 
 ## Local development
 

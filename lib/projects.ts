@@ -590,7 +590,7 @@ export const SITE = {
   email: "analystkumar29@gmail.com",
   phone: "+1 604 849 5329",
   phoneHref: "tel:+16048495329",
-  url: "https://portfolio-blue-three-62.vercel.app",
+  url: "https://manojkumar-ca.vercel.app",
   linkedin: "https://www.linkedin.com/in/meet-manoj/",
   github: "https://github.com/analystkumar29",
   description:
