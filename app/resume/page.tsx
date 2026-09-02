@@ -8,6 +8,16 @@ import { gmailComposeUrl, SITE } from "@/lib/projects";
 
 const RESUME_FILENAME = "manoj-kumar-resume.pdf";
 const RESUME_PATH = path.join(process.cwd(), "public", "resume", RESUME_FILENAME);
+const RESUME_REQUEST_MESSAGE = [
+  "Hello Manoj,",
+  "",
+  "Please send me your current résumé for the role below.",
+  "",
+  "Role/company:",
+  "",
+  "Thank you,",
+  "[Your name]",
+].join("\n");
 
 export const dynamic = "force-dynamic";
 
@@ -37,7 +47,7 @@ export default async function ResumePage() {
             </p>
             <div className="flex flex-wrap gap-3 pt-1">
               <a
-                href={gmailComposeUrl("Résumé request")}
+                href={gmailComposeUrl("Résumé request", RESUME_REQUEST_MESSAGE)}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2.5 bg-ink text-canvas text-[15px] font-medium px-[22px] py-[13px] rounded-full transition-colors hover:bg-accent"

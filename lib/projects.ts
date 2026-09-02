@@ -601,13 +601,15 @@ export const SITE = {
  * Opens a compose window even when a visitor has not configured a default
  * email application for `mailto:` links (common on mobile browsers).
  */
-export function gmailComposeUrl(subject = "Portfolio enquiry") {
+export function gmailComposeUrl(subject = "Portfolio enquiry", body?: string) {
   const params = new URLSearchParams({
     view: "cm",
     fs: "1",
     to: SITE.email,
     su: subject,
   });
+
+  if (body) params.set("body", body);
 
   return `https://mail.google.com/mail/?${params.toString()}`;
 }
