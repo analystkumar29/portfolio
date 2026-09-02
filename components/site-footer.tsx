@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { SITE, PROJECTS } from "@/lib/projects";
+import { gmailComposeUrl, SITE, PROJECTS } from "@/lib/projects";
 import { Label } from "@/components/ui";
 
 export function SiteFooter() {
@@ -16,7 +16,9 @@ export function SiteFooter() {
               follows.
             </p>
             <a
-              href={`mailto:${SITE.email}`}
+              href={gmailComposeUrl()}
+              target="_blank"
+              rel="noopener noreferrer"
               className="text-[14.5px] text-accent hover:text-accent-deep w-fit"
             >
               {SITE.email}

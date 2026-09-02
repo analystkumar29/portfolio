@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { Label, Shell } from "@/components/ui";
-import { SITE } from "@/lib/projects";
+import { gmailComposeUrl, SITE } from "@/lib/projects";
 
 const RESUME_FILENAME = "manoj-kumar-resume.pdf";
 const RESUME_PATH = path.join(process.cwd(), "public", "resume", RESUME_FILENAME);
@@ -37,7 +37,9 @@ export default async function ResumePage() {
             </p>
             <div className="flex flex-wrap gap-3 pt-1">
               <a
-                href={`mailto:${SITE.email}?subject=Résumé%20request`}
+                href={gmailComposeUrl("Résumé request")}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-flex items-center gap-2.5 bg-ink text-canvas text-[15px] font-medium px-[22px] py-[13px] rounded-full transition-colors hover:bg-accent"
               >
                 Request my résumé

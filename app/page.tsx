@@ -10,7 +10,7 @@ import {
   SectionHeading,
   Shell,
 } from "@/components/ui";
-import { SITE } from "@/lib/projects";
+import { gmailComposeUrl, SITE } from "@/lib/projects";
 import { homeSchema } from "@/lib/schema";
 import { JsonLd } from "@/components/json-ld";
 import { ContactForm } from "@/components/contact-form";
@@ -493,7 +493,9 @@ export default function Home() {
                 <div className="flex flex-col gap-1.5">
                   <Label className="tracking-[0.14em]">Email</Label>
                   <a
-                    href={`mailto:${SITE.email}`}
+                    href={gmailComposeUrl()}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="text-[17px] text-accent hover:text-accent-deep w-fit"
                   >
                     {SITE.email}
@@ -549,7 +551,9 @@ export default function Home() {
                     myself.
                   </p>
                   <a
-                    href={`mailto:${SITE.email}?subject=Portfolio%20enquiry`}
+                    href={gmailComposeUrl()}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="inline-flex items-center gap-2.5 bg-ink text-canvas text-[15px] font-medium px-[22px] py-[13px] rounded-full transition-colors hover:bg-accent"
                   >
                     Email Manoj

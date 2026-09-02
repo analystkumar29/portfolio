@@ -596,3 +596,18 @@ export const SITE = {
   description:
     "I build high-converting websites, customer-service automation, and practical internal workflows that help service businesses respond faster and operate with less manual work.",
 };
+
+/**
+ * Opens a compose window even when a visitor has not configured a default
+ * email application for `mailto:` links (common on mobile browsers).
+ */
+export function gmailComposeUrl(subject = "Portfolio enquiry") {
+  const params = new URLSearchParams({
+    view: "cm",
+    fs: "1",
+    to: SITE.email,
+    su: subject,
+  });
+
+  return `https://mail.google.com/mail/?${params.toString()}`;
+}
