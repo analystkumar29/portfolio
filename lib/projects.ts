@@ -591,7 +591,7 @@ export const SITE = {
   phone: "+1 604 849 5329",
   phoneHref: "tel:+16048495329",
   url: "https://portfolio-blue-three-62.vercel.app",
-  linkedin: "https://www.linkedin.com/in/analystkumar",
+  linkedin: "https://www.linkedin.com/in/meet-manoj/",
   github: "https://github.com/analystkumar29",
   description:
     "I build high-converting websites, customer-service automation, and practical internal workflows that help service businesses respond faster and operate with less manual work.",
