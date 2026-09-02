@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Newsreader, Instrument_Sans, JetBrains_Mono } from "next/font/google";
 import { SiteNav } from "@/components/site-nav";
 import { SiteFooter } from "@/components/site-footer";
+import { SiteAnalytics } from "@/components/site-analytics";
 import { SITE } from "@/lib/projects";
 import "./globals.css";
 
@@ -68,6 +69,7 @@ export default function RootLayout({
           {children}
         </main>
         <SiteFooter />
+        <SiteAnalytics />
       </body>
     </html>
   );

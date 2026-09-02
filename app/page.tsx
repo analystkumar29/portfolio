@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { WorkShowcase } from "@/components/work-showcase";
 import {
   Chip,
@@ -13,13 +14,6 @@ import { SITE } from "@/lib/projects";
 import { homeSchema } from "@/lib/schema";
 import { JsonLd } from "@/components/json-ld";
 import { ContactForm } from "@/components/contact-form";
-
-const HANDOFF = [
-  ["Fills in a form", "A job appears, assigned and dated"],
-  ["Asks a question at 11pm", "An agent answers from real business information"],
-  ["Books a time", "Calendar, confirmation and reminder go out"],
-  ["Says yes", "Payment, receipt and record — nobody retypes anything"],
-];
 
 const PROOF_CHIPS = [
   "Booking & service operations",
@@ -195,14 +189,33 @@ export default function Home() {
 
             <div className="flex flex-wrap gap-x-5 gap-y-2 items-center">
               <span className="font-mono text-[10px] tracking-[0.13em] uppercase text-ghost">
-                Looking for
+                For hiring
               </span>
-              <Link
-                href="/work/travelling-technicians"
+              <a
+                href={SITE.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-sm font-medium text-accent border-b border-accent-line pb-px hover:text-accent-deep"
               >
-                I&rsquo;m hiring →
+                LinkedIn ↗
+              </a>
+              <a
+                href={SITE.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm font-medium text-accent border-b border-accent-line pb-px hover:text-accent-deep"
+              >
+                GitHub ↗
+              </a>
+              <Link
+                href="/resume"
+                className="text-sm font-medium text-accent border-b border-accent-line pb-px hover:text-accent-deep"
+              >
+                Résumé →
               </Link>
+              <span className="font-mono text-[10px] tracking-[0.13em] uppercase text-ghost sm:ml-2">
+                For a project
+              </span>
               <Link
                 href="#services"
                 className="text-sm font-medium text-accent border-b border-accent-line pb-px hover:text-accent-deep"
@@ -212,43 +225,30 @@ export default function Home() {
             </div>
           </div>
 
-          {/* One request, two sides */}
-          <figure className="border border-[#e4ddd0] rounded-2xl bg-surface p-5 sm:p-7 shadow-[0_1px_2px_rgba(26,24,20,0.03),0_26px_50px_-34px_rgba(26,24,20,0.35)]">
-            <figcaption className="font-mono text-[10px] tracking-[0.14em] uppercase text-fainter pb-4 border-b border-line-soft">
-              One request, two sides
-            </figcaption>
-
-            <div className="grid grid-cols-[1fr_22px_1fr] gap-x-2.5 items-center pt-4">
-              <span className="font-mono text-[9.5px] tracking-[0.13em] uppercase text-accent pb-3">
-                The customer
-              </span>
-              <span />
-              <span className="font-mono text-[9.5px] tracking-[0.13em] uppercase text-operator pb-3">
-                The business
-              </span>
-
-              {HANDOFF.map(([customer, business]) => (
-                <div key={customer} className="contents">
-                  <span className="text-[14.5px] text-ink-soft py-3.5 border-t border-line-soft">
-                    {customer}
-                  </span>
-                  <span
-                    aria-hidden="true"
-                    className="font-mono text-xs text-[#c4bcaa] text-center py-3.5 border-t border-line-soft"
-                  >
-                    →
-                  </span>
-                  <span className="text-[14.5px] text-ink-soft py-3.5 border-t border-line-soft">
-                    {business}
-                  </span>
-                </div>
-              ))}
+          <figure className="self-start overflow-hidden rounded-2xl border border-[#e4ddd0] bg-surface shadow-[0_1px_2px_rgba(26,24,20,0.03),0_26px_50px_-34px_rgba(26,24,20,0.35)]">
+            <div className="relative aspect-square bg-inset">
+              <Image
+                src="/manoj-kumar-portrait.webp"
+                alt="Manoj Kumar, Product and Automation Engineer"
+                fill
+                priority
+                sizes="(min-width: 1024px) 42vw, 100vw"
+                className="object-cover object-center"
+              />
             </div>
-
-            <p className="text-[13.5px] leading-[1.55] text-muted pt-5 mt-4 border-t border-line-soft">
-              Most portfolios only show the left column. The four projects below let
-              you look at both.
-            </p>
+            <figcaption className="flex flex-wrap items-end justify-between gap-4 border-t border-line bg-surface px-5 py-4 sm:px-6 sm:py-5">
+              <div className="flex flex-col gap-1">
+                <Label tone="accent" className="tracking-[0.14em]">
+                  Manoj Kumar · Burnaby, BC
+                </Label>
+                <p className="font-serif text-[21px] leading-tight text-ink">
+                  Product &amp; Automation Engineer
+                </p>
+              </div>
+              <p className="max-w-[19ch] text-right font-mono text-[10px] leading-[1.55] tracking-[0.08em] uppercase text-faint">
+                Open to roles and select client work
+              </p>
+            </figcaption>
           </figure>
         </Shell>
       </header>
@@ -443,6 +443,27 @@ export default function Home() {
                   <Chip key={item}>{item}</Chip>
                 ))}
               </ul>
+              <div className="flex flex-wrap gap-x-5 gap-y-2 pt-4 mt-1 border-t border-line-soft">
+                <a
+                  href={SITE.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[14.5px] text-accent hover:text-accent-deep"
+                >
+                  LinkedIn ↗
+                </a>
+                <a
+                  href={SITE.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[14.5px] text-accent hover:text-accent-deep"
+                >
+                  GitHub ↗
+                </a>
+                <Link href="/resume" className="text-[14.5px] text-accent hover:text-accent-deep">
+                  Résumé →
+                </Link>
+              </div>
               <p className="font-mono text-[11px] text-faint pt-4 mt-1 border-t border-line-soft">
                 {SITE.name} · {SITE.location}
               </p>
@@ -512,7 +533,35 @@ export default function Home() {
                 </div>
               </div>
 
-              <ContactForm />
+              {process.env.RESEND_API_KEY ? (
+                <ContactForm />
+              ) : (
+                <div className="border border-line rounded-2xl bg-surface p-6 sm:p-8 flex flex-col items-start gap-4">
+                  <Label tone="accent" className="tracking-[0.14em]">
+                    The fastest route
+                  </Label>
+                  <p className="font-serif text-[clamp(22px,2.4vw,30px)] leading-[1.25] text-ink text-balance">
+                    Email or text me directly.
+                  </p>
+                  <p className="text-[15px] leading-[1.65] text-body max-w-[45ch]">
+                    Whether you&rsquo;re hiring or have a project in mind, a few lines
+                    about the role or the problem is plenty. I read every message
+                    myself.
+                  </p>
+                  <a
+                    href={`mailto:${SITE.email}?subject=Portfolio%20enquiry`}
+                    className="inline-flex items-center gap-2.5 bg-ink text-canvas text-[15px] font-medium px-[22px] py-[13px] rounded-full transition-colors hover:bg-accent"
+                  >
+                    Email Manoj
+                    <span aria-hidden="true" className="font-mono text-[13px]">
+                      →
+                    </span>
+                  </a>
+                  <p className="font-mono text-[10.5px] tracking-[0.06em] text-faint">
+                    {SITE.email} · {SITE.phone}
+                  </p>
+                </div>
+              )}
             </div>
           </div>
         </Shell>

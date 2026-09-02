@@ -2,9 +2,7 @@
  * The content model behind every project card and case study.
  *
  * Sourcing rule for this file: a claim only goes in if it is visible on the
- * live site or verifiable in the project's own repository. Anything that
- * needs Manoj to confirm scope, permission or a number is marked `review`
- * and rendered with a visible flag rather than asserted quietly.
+ * live site, a project repository, or Manoj's confirmed implementation scope.
  */
 
 export type Step = { label: string; note?: string };
@@ -26,6 +24,8 @@ export type Project = {
   domain: string;
   url: string;
   category: string;
+  /** Concise period shown on the public case study. */
+  timeframe: string;
   live: boolean;
   /** Own product vs client work — the single most useful framing for both audiences. */
   ownership: "Own product" | "Client work";
@@ -59,8 +59,6 @@ export type Project = {
   /** Additional annotated evidence, shown as a gallery on the case study. */
   gallery: Shot[];
   links: { label: string; href: string }[];
-  /** Items needing Manoj's confirmation before this page is promoted. */
-  review: string[];
 };
 
 export const PROJECTS: Project[] = [
@@ -71,6 +69,7 @@ export const PROJECTS: Project[] = [
     domain: "travelling-technicians.ca",
     url: "https://www.travelling-technicians.ca/",
     category: "Field-service platform",
+    timeframe: "2025–present",
     live: true,
     ownership: "Own product",
     role: "Everything: idea, product, design, database, SEO system, booking and payments, admin and technician tooling, the AI agents, and the maintenance since.",
@@ -81,7 +80,7 @@ export const PROJECTS: Project[] = [
     problem:
       "A mobile repair business competes against every shop with a storefront and a Google listing. To be found at all, you need a page for the exact thing someone typed — \"iPhone 14 screen repair in Surrey\" — and there are thousands of those combinations. Writing them by hand is impossible, and generating them badly is worse than not having them. Then the harder half starts: a booking has to reach a technician, the customer has to know what it costs before they commit, and somebody has to issue the warranty and collect the review without retyping anything.",
     built:
-      "Three machines that feed each other. An SEO page factory turns a routes table in Postgres into roughly 9,000 addressable pages from a single catch-all template — about 5,000 prebuilt at deploy time and 6,000 published in the sitemap, with the rest rendering on first request and caching. A booking engine takes a three-step booking, prices it from a three-tier model, and settles it through Stripe. An operations layer gives staff a real-time admin surface and technicians a PWA where they claim jobs — with an AI chat assistant and an AI phone receptionist calling the same database tools the admin runs on.",
+      "Three machines that feed each other. An SEO page factory turns a routes table in Postgres into roughly 9,000 addressable pages from a single catch-all template — about 5,000 prebuilt at deploy time and 6,000 published in the sitemap, with the rest rendering on first request and caching. A booking engine takes a three-step booking, prices it from a three-tier model, and settles it through Stripe. An operations layer gives staff a real-time admin surface and technicians a PWA where they claim jobs — with an AI chat assistant and AI phone receptionist calling the same database tools the admin runs on. A dedicated Google Business Profile MCP server lets AI workflows work with a real business surface rather than a disconnected prompt.",
     customerJourney: [
       { label: "Find the local page", note: "city × service × device" },
       { label: "Price + warranty", note: "before committing" },
@@ -136,12 +135,14 @@ export const PROJECTS: Project[] = [
       "Stripe",
       "Resend",
       "AI chat (DeepSeek) + voice receptionist (Retell)",
+      "Google Business Profile MCP server",
+      "Web push, QR codes + IndexNow",
       "Technician PWA",
     ],
     metrics: [
       { value: "8,948", label: "routes in the live index queue", source: "index run, Jul 2026" },
       { value: "6,000", label: "URLs published in the sitemap", source: "live sitemap" },
-      { value: "86 / 57 / 12", label: "tables, triggers, views in migrations", source: "repo" },
+      { value: "94 / 203 / 617", label: "migrations, API routes and source files", source: "repo" },
       { value: "4.8 ★", label: "from 57 verified reviews", source: "live site" },
     ],
     validation: [
@@ -151,6 +152,7 @@ export const PROJECTS: Project[] = [
       "Structured FAQ data on roughly 3,300 pages for rich-result eligibility.",
       "Warranty coverage is self-serve: a customer can check it months later with a warranty number or booking reference, with no account.",
       "Payments run through Stripe with pay-later links, and Affirm, Klarna and Afterpay offered at checkout.",
+      "The AI layer includes a dedicated Google Business Profile MCP server, so business-profile work can use real tools instead of a generic chat script.",
       "Still maintained by me — the pricing, the routes and the agents are mine to keep honest.",
     ],
     next:
@@ -198,7 +200,6 @@ export const PROJECTS: Project[] = [
       },
     ],
     links: [{ label: "Visit travelling-technicians.ca", href: "https://www.travelling-technicians.ca/" }],
-    review: [],
   },
   {
     slug: "immigration-timeline",
@@ -207,6 +208,7 @@ export const PROJECTS: Project[] = [
     domain: "immigrationtimeline.ca",
     url: "https://www.immigrationtimeline.ca/",
     category: "Privacy-led data product",
+    timeframe: "2026–present",
     live: true,
     ownership: "Own product",
     role: "Idea to production, solo — the concept, the data model, the ingestion, the privacy thresholds, the prediction work, the interface and the deployment.",
@@ -258,6 +260,11 @@ export const PROJECTS: Project[] = [
       "Aggregate RPCs with k-anonymity enforced",
       "Passwordless email sign-in",
       "Cloudflare Turnstile",
+      "Cohort chat + daily digest notifications",
+      "Installable offline PWA",
+      "Python retraining + calibration backtests",
+      "Upstash rate limiting + BotID",
+      "Architecture decision records",
       "Published methodology page",
     ],
     metrics: [
@@ -265,12 +272,14 @@ export const PROJECTS: Project[] = [
       { value: "≥ 25", label: "weighted cases before anything is published", source: "repo + live site" },
       { value: "22 Jul 2026", label: "last trained, stated on the page", source: "methodology page" },
       { value: "0", label: "passwords stored", source: "repo" },
+      { value: "69.8% / 88.1%", label: "measured IPCW coverage for published p25–p75 / p10–p90 bands", source: "repo backtest" },
     ],
     validation: [
       "Live, with the aggregation floor stated publicly on the sign-in page and again in the methodology.",
       "Express Entry and spousal sponsorship are the only streams published — the ones with enough reported timelines to be defensible.",
       "Every published row carries its own range and sample size, and stages the model has never been able to score are labelled as such.",
       "The methodology page states that today's model was built from a pre-launch community corpus, not from the site's own users — and says it will change when that changes.",
+      "The published backtest reports the uncomfortable result too: the bands measured 69.8% coverage for a p25–p75 label and 88.1% for p10–p90; eleven late-stage milestones, including PPR, eCOPR and landing, are explicitly excluded from the coverage gate because the observation window cannot score them fairly.",
     ],
     next:
       "The honest gap is coverage: two streams are published because the rest are too thin. More reported timelines is the only fix, and getting them without resorting to the engagement mechanics the product deliberately avoids is the actual design problem.",
@@ -336,10 +345,6 @@ export const PROJECTS: Project[] = [
       { label: "Visit immigrationtimeline.ca", href: "https://www.immigrationtimeline.ca/" },
       { label: "Read the methodology", href: "https://www.immigrationtimeline.ca/methodology" },
     ],
-    review: [
-      "The live product is branded IRCC Tracker while this case study and the domain say Immigration Timeline. Pick one name, or say plainly that the product is IRCC Tracker at immigrationtimeline.ca.",
-      "If you want the \"126,953 reported timelines\" figure and the model training date back on this page, give me the current numbers and I'll add them with a stated as-of date.",
-    ],
   },
   {
     slug: "indian-burger-joint",
@@ -348,9 +353,10 @@ export const PROJECTS: Project[] = [
     domain: "indianburgerjoint.com",
     url: "https://www.indianburgerjoint.com/",
     category: "Multi-location brand platform",
+    timeframe: "2025–present",
     live: true,
     ownership: "Client work",
-    role: "Client project — website, brand system, location architecture and the franchise funnel. TODO: tighten this line to your exact scope.",
+    role: "Client project — website, brand system, location architecture and the franchise funnel.",
     outcome:
       "One brand, two funnels: tonight's order and next year's franchise partner.",
     teaser:
@@ -437,9 +443,6 @@ export const PROJECTS: Project[] = [
       { label: "Visit indianburgerjoint.com", href: "https://www.indianburgerjoint.com/" },
       { label: "See the franchise funnel", href: "https://www.indianburgerjoint.com/franchise" },
     ],
-    review: [
-      "This is the one project with no repository I could check, so its case study is written from what is publicly visible on the live site. Add the build details you own — CMS, ordering integration, who maintains it — and I'll fold them in.",
-    ],
   },
   {
     slug: "raba-thrift",
@@ -448,6 +451,7 @@ export const PROJECTS: Project[] = [
     domain: "rabathrift.ca",
     url: "https://www.rabathrift.ca/",
     category: "Community retail & donation engine",
+    timeframe: "2026–present",
     live: true,
     ownership: "Client work",
     role: "Client project — website, Sanity content layer, per-city pickup pages and the donation intake flow.",
@@ -457,20 +461,23 @@ export const PROJECTS: Project[] = [
     problem:
       "A thrift store runs on donations. Most thrift store websites are built around shopping and opening hours, which optimises the half of the business that isn't the constraint. Stock is the constraint — so donating has to be the main action, and it has to work for people who will never fill in a form.",
     built:
-      "A donation-led site where booking a free pickup is the primary action, with per-city pickup pages as a repeatable local-SEO pattern, a Sanity-managed content layer for guides and shop content, and phone, text and WhatsApp presented as first-class routes rather than fallbacks.",
+      "A donation-led site where booking a free pickup is the primary action, with 22+ pages across seven Fraser Valley cities, intent-specific acquisition pages for junk removal, moving cleanouts, estate cleanouts and free furniture removal, and an objection-handling content layer for what the store does and does not accept. A full Sanity Studio gives the client control of ten content types, and on-demand revalidation publishes their edits without a developer deploy. Phone, text and WhatsApp are presented as first-class routes rather than fallbacks.",
     customerJourney: [
       { label: "Book a free pickup", note: "area + items up front" },
+      { label: "Find the right cleanout route", note: "junk, moving, estate or furniture" },
+      { label: "Check what is accepted", note: "before arranging a pickup" },
       { label: "Or shop the store", note: "curated secondhand" },
       { label: "Or call / text / WhatsApp", note: "whichever you'd actually do" },
     ],
     operatorJourney: [
       { label: "Pickup requested", note: "area + items captured up front" },
       { label: "Area page", note: "a repeatable local-SEO pattern" },
+      { label: "Sanity edit published", note: "on-demand revalidation, no deploy" },
       { label: "Staff follow-up", note: "a route that makes geographic sense" },
       { label: "Donation received", note: "stock in, community value out" },
     ],
     operatorNote:
-      "Phone, text and WhatsApp are first-class. Plenty of donors will never fill in a form. Treating those as real routes instead of fallbacks is the difference between a lead and a lost one.",
+      "The client can own the daily work: Sanity Studio controls content, promotions, FAQs and more, while on-demand revalidation makes a published change live without asking a developer to redeploy. Phone, text and WhatsApp remain first-class routes for donors who will never fill in a form.",
     decisions: [
       {
         title: "Optimise for supply, not demand",
@@ -485,6 +492,18 @@ export const PROJECTS: Project[] = [
         body: "Each area gets a real page rather than one generic pickup form, which is how a local search for \"donation pickup\" in a specific town finds this store instead of a national charity. It is a repeatable pattern, not one-off content.",
       },
       {
+        title: "Meet disposal intent with a better alternative",
+        body: "The most useful search visitor is not always looking for a thrift store. Four specific routes — junk removal, moving cleanouts, estate cleanouts and free furniture removal — meet the job they are trying to do, then explain when a free donation pickup is a better outcome. The junk-removal page makes the contrast concrete: a typical $200–$600 haul versus a free pickup for usable goods.",
+      },
+      {
+        title: "Give the client a publishing system, not a handoff dependency",
+        body: "The site includes a Sanity Studio with ten editable content types and an on-demand revalidation route. Blog posts, promotions, hours, FAQs and content updates can go live from the client’s own workspace without a deployment or a support ticket.",
+      },
+      {
+        title: "Handle objections before the form",
+        body: "Acceptance and non-acceptance pages, guides and city pages answer the questions that otherwise turn into unqualified calls: Can you take this? Do you serve my area? What happens next? That makes the pickup request more useful for both the donor and staff.",
+      },
+      {
         title: "Make the community reason visible",
         body: "The store supports Ruth & Naomi's Mission and Archway Community Services. That is the actual answer to \"why this store instead of the donation bin down the road\", so it belongs on the page rather than in an About section nobody opens.",
       },
@@ -492,17 +511,23 @@ export const PROJECTS: Project[] = [
     stack: [
       "Next.js 16",
       "Sanity CMS",
+      "10 editable content schemas",
+      "On-demand revalidation",
       "Supabase",
       "Resend",
       "Per-city pickup routes",
       "Multi-channel lead capture",
     ],
     metrics: [
-      { value: "4.5 ★", label: "on Google, from 24 reviews", source: "live site" },
-      { value: "3", label: "contact routes treated as first-class", source: "live site" },
+      { value: "22+", label: "acquisition and content pages", source: "project content plan" },
+      { value: "7", label: "Fraser Valley cities covered", source: "live pickup pages" },
+      { value: "$200–$600 → free", label: "junk-removal cost comparison", source: "live service page" },
+      { value: "10", label: "content types client can edit", source: "Sanity Studio" },
     ],
     validation: [
       "Live in Chilliwack with free-pickup booking, shop content and community pages.",
+      "Four intent-specific acquisition pages turn cleanout and disposal searches into an appropriate donation-pickup route.",
+      "Client-managed Sanity content publishes through on-demand revalidation, so ordinary site changes do not wait on a developer.",
       "Pickup requests arrive structured, with the area attached.",
       "Supports Ruth & Naomi's Mission and Archway Community Services, stated on the homepage.",
     ],
@@ -518,6 +543,30 @@ export const PROJECTS: Project[] = [
     },
     gallery: [
       {
+        src: "/evidence/raba-junk-removal.jpg",
+        width: 1280,
+        height: 720,
+        alt: "Raba Thrift's Free Alternative to Junk Removal in Chilliwack page, contrasting a typical $200 to $600 junk-removal load with a free pickup for usable goods.",
+        caption:
+          "A page for the job a person is actually trying to do. Rather than waiting for someone to search for a thrift store, it intercepts \"junk removal Chilliwack\" intent and shows when a free pickup is the better alternative.",
+      },
+      {
+        src: "/evidence/raba-acceptance.jpg",
+        width: 1280,
+        height: 720,
+        alt: "Raba Thrift's What We Accept page, explaining which items can be donated, sold or brought to the store.",
+        caption:
+          "Clear acceptance guidance is not filler content. It removes the uncertainty that creates unqualified pickups and lets donors decide before they call or submit a form.",
+      },
+      {
+        src: "/evidence/raba-pickup-flow.jpg",
+        width: 1280,
+        height: 720,
+        alt: "Raba Thrift's Free Donation Pickup page explaining the three steps from item details to a confirmation call and free pickup.",
+        caption:
+          "The pickup route makes the operational handoff visible: share what you have, confirm within 24 hours, then arrange the pickup. It sets the expectation before staff ever pick up the phone.",
+      },
+      {
         src: "/evidence/raba-pickup.jpg",
         width: 1547,
         height: 784,
@@ -527,9 +576,6 @@ export const PROJECTS: Project[] = [
       },
     ],
     links: [{ label: "Visit rabathrift.ca", href: "https://www.rabathrift.ca/" }],
-    review: [
-      "The brief noted the apex domain raba-thrift.ca did not resolve while www.rabathrift.ca was healthy. Worth fixing before this is linked from a portfolio.",
-    ],
   },
 ];
 
@@ -541,10 +587,12 @@ export const SITE = {
   name: "Manoj Kumar",
   role: "Product & Automation Engineer",
   location: "Burnaby, British Columbia",
-  email: "hello@manojkumar.ca",
+  email: "analystkumar29@gmail.com",
   phone: "+1 604 849 5329",
   phoneHref: "tel:+16048495329",
   url: "https://portfolio-blue-three-62.vercel.app",
+  linkedin: "https://www.linkedin.com/in/analystkumar",
+  github: "https://github.com/analystkumar29",
   description:
     "I build high-converting websites, customer-service automation, and practical internal workflows that help service businesses respond faster and operate with less manual work.",
 };

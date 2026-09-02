@@ -6,7 +6,7 @@ import { BrowserFrame } from "@/components/browser-frame";
 import { SystemMap } from "@/components/system-map";
 import { EvidenceGallery } from "@/components/evidence-gallery";
 import { TTArchitecture } from "@/components/tt-architecture";
-import { Label, LiveDot, ReviewNote, Shell } from "@/components/ui";
+import { Label, LiveDot, Shell } from "@/components/ui";
 import { caseStudySchema } from "@/lib/schema";
 import { JsonLd } from "@/components/json-ld";
 
@@ -74,6 +74,9 @@ export default async function CaseStudy({
                 </span>
               </span>
             ) : null}
+            <span className="font-mono text-[9.5px] tracking-[0.13em] uppercase text-fainter">
+              {project.timeframe}
+            </span>
           </div>
 
           <h1 className="font-serif font-normal text-[clamp(34px,4.6vw,54px)] leading-[1.06] tracking-[-0.02em] text-balance text-ink">
@@ -311,15 +314,6 @@ export default async function CaseStudy({
           </div>
         </Shell>
       </section>
-
-      {/* Open items for Manoj */}
-      {project.review.length ? (
-        <section className="pt-10">
-          <Shell>
-            <ReviewNote items={project.review} />
-          </Shell>
-        </section>
-      ) : null}
 
       {/* Next case studies */}
       <section className="pt-16 sm:pt-24">

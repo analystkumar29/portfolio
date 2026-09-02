@@ -83,6 +83,9 @@ export function WorkShowcase() {
                     </span>
                   </span>
                 ) : null}
+                <span className="font-mono text-[9.5px] tracking-[0.13em] uppercase text-fainter">
+                  {project.timeframe}
+                </span>
               </div>
 
               <h3 className="font-serif font-normal text-[clamp(26px,3vw,36px)] leading-[1.12] tracking-[-0.018em] text-ink">

@@ -17,28 +17,25 @@ That is not a failure of the build. It is what a portfolio site is. The things t
 
 ---
 
-## 1. Buy a domain — nothing else matters until this is done
+## 1. Use one stable public URL
 
-`portfolio-blue-three-62.vercel.app` cannot rank. It is a shared subdomain sitting
-alongside thousands of throwaway deploys, it carries no authority, and it reads as a
-hobby project on a résumé or a client email.
+This portfolio intentionally uses its Vercel address:
+`https://portfolio-blue-three-62.vercel.app`. Do not point it at
+`manojkumar.ca`; that is not this portfolio's domain.
 
-- Buy `manojkumar.ca` if it's free — your email already implies it.
-- Add it in Vercel → Project → Settings → Domains, then point the DNS at your registrar.
-- Serve **one** canonical host. Pick `www` or apex, and 301 the other to it. Your own
-  portfolio calls this out as a thing you check on client sites; Raba Thrift currently
-  fails it.
-- Update `SITE.url` in `lib/projects.ts` afterwards — canonical tags, the sitemap,
-  `robots.txt` and the OG image URLs are all derived from it.
+The important part is to link the same address everywhere — LinkedIn, your résumé,
+GitHub profile and messages — so the portfolio has one consistent public home.
+`SITE.url` in `lib/projects.ts` drives canonical tags, the sitemap, `robots.txt` and
+OG image URLs, and is already set to this address.
 
-**Effort: an hour. Impact: everything below depends on it.**
+**Effort: none. Keep the URL consistent.**
 
 ---
 
 ## 2. Tell Google the site exists
 
-1. **Google Search Console** → add the domain property → verify by DNS → submit
-   `https://yourdomain/sitemap.xml`.
+1. **Google Search Console** → add a URL-prefix property for the Vercel address →
+   verify it → submit `https://portfolio-blue-three-62.vercel.app/sitemap.xml`.
 2. Use the URL Inspection tool on the homepage and one case study, and request indexing.
 3. Check back in two weeks. Search Console is also how you find out which queries you
    are *actually* appearing for, which is usually not the ones you guessed.
@@ -150,7 +147,8 @@ Verified on the deployed site:
 
 ## 8. Still open on the site itself
 
-- **Rough analytics.** Vercel Analytics is one line, and tells you what recruiters read.
+- **Analytics activation.** The Vercel Analytics component is installed; enable Web
+  Analytics once in the Vercel project dashboard to see what recruiters read.
 - **Local service pages** (§5) — the big one.
 - **Testimonials.** You have four clients and no quotes on the site. For a business
   owner deciding whether to trust you, one sentence from Raba Thrift outweighs a

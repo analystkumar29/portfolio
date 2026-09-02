@@ -127,28 +127,3 @@ export function SectionHeading({
     </div>
   );
 }
-
-/**
- * A visible flag for anything Manoj still needs to confirm. Deliberately not
- * subtle — an unverified claim on a portfolio is worse than a missing one.
- */
-export function ReviewNote({ items }: { items: string[] }) {
-  if (!items.length) return null;
-  return (
-    <aside className="border border-accent-line bg-[#fdf6f1] rounded-xl p-5 sm:p-6">
-      <Label tone="accent" className="tracking-[0.14em]">
-        Before this goes public · {items.length} to confirm
-      </Label>
-      <ul className="flex flex-col gap-2.5 pt-3.5">
-        {items.map((item) => (
-          <li key={item} className="text-[14px] leading-[1.6] text-body flex gap-2.5">
-            <span aria-hidden="true" className="font-mono text-accent text-xs pt-0.5">
-              ›
-            </span>
-            <span>{item}</span>
-          </li>
-        ))}
-      </ul>
-    </aside>
-  );
-}

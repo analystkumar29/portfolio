@@ -6,7 +6,7 @@ export function SiteFooter() {
   return (
     <footer className="border-t border-line bg-sunk mt-24">
       <div className="w-full max-w-[1240px] mx-auto px-5 sm:px-8 lg:px-12 py-14">
-        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr] pb-10 border-b border-line">
+        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-[1.35fr_1fr_1fr_0.85fr] pb-10 border-b border-line">
           <div className="flex flex-col gap-3">
             <p className="font-serif text-[22px] text-ink leading-snug">
               {SITE.name}
@@ -49,6 +49,29 @@ export function SiteFooter() {
             </Link>
             <Link href="/#contact" className="text-[14.5px] text-body hover:text-accent w-fit">
               Contact
+            </Link>
+          </div>
+
+          <div className="flex flex-col gap-3">
+            <Label className="tracking-[0.14em]">Elsewhere online</Label>
+            <a
+              href={SITE.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[14.5px] text-body hover:text-accent w-fit"
+            >
+              LinkedIn ↗
+            </a>
+            <a
+              href={SITE.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[14.5px] text-body hover:text-accent w-fit"
+            >
+              GitHub ↗
+            </a>
+            <Link href="/resume" className="text-[14.5px] text-body hover:text-accent w-fit">
+              Résumé
             </Link>
           </div>
         </div>
