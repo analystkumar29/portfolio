@@ -1,6 +1,6 @@
 # Manoj Kumar — Portfolio
 
-Personal portfolio site: **Product & Automation Engineer for service businesses.**
+Personal portfolio site: **Manoj Kumar, Developer & Data Analyst** (Burnaby, BC).
 
 Built with Next.js 16 (App Router), React 19 and Tailwind CSS v4. Every route is
 prerendered as static HTML except `/resume`, which checks for the PDF at request time.
@@ -9,7 +9,7 @@ prerendered as static HTML except `/resume`, which checks for the PDF at request
 
 | Route | What it does |
 | --- | --- |
-| `/` | Positioning, the four systems with a customer/operator toggle, services, about, contact |
+| `/` | Hiring-first intro and results, the four systems with a customer/operator toggle, smaller projects, skills, experience, client work, contact |
 | `/resume` | Serves the résumé PDF if one is present, otherwise a request-by-email panel |
 | `/work` | Index of the four case studies |
 | `/work/[slug]` | A full case study per project (4 pages, statically generated) |
