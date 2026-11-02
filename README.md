@@ -21,14 +21,14 @@ typed `Project` object per case study. Editing that file changes the home page, 
 work index and the case study together, so the three can't drift apart.
 
 **Sourcing rule:** a claim only goes in if it is visible on the live site or
-verifiable in that project's own repository. Numbers carry a `source` string that
+verifiable in that project's own repository (or its Google Search Console / Google Business Profile). Numbers carry a `source` string that
 renders under them on the case study, so anything asserted on the page can be
 traced back to where it came from.
 
 ## Evidence screenshots
 
 `public/evidence/*.jpg` and `*.png` are screenshots of the four live sites, captured
-July 2026. They go stale as the sites change, and publishing shots of client work
+July 2026 (the Travelling Technicians homepage was refreshed in November 2026). They go stale as the sites change, and publishing shots of client work
 assumes the client is happy for it to be shown.
 
 ## Environment variables

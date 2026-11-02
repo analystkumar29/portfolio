@@ -14,33 +14,129 @@ import { gmailComposeUrl, SITE } from "@/lib/projects";
 import { homeSchema } from "@/lib/schema";
 import { JsonLd } from "@/components/json-ld";
 
-const PROOF_CHIPS = [
-  "Booking & service operations",
-  "Local SEO & multi-location content",
-  "AI chat / voice workflows",
-  "Privacy-aware product design",
+const PROOF_STATS = [
+  {
+    value: "547K",
+    label: "Google search impressions",
+    source: "Travelling Technicians · Feb–Oct 2026",
+  },
+  {
+    value: "~9,000",
+    label: "pages generated from one Postgres table",
+    source: "Travelling Technicians",
+  },
+  {
+    value: "336",
+    label: "monthly active users, in 33 countries",
+    source: "Immigration Timeline · Nov 2026",
+  },
+  {
+    value: "1,400+",
+    label: "commits shipped since April 2025",
+    source: "Travelling Technicians repo",
+  },
 ];
 
-const AFTER_STEPS = [
+const ALSO_BUILT = [
   {
-    title: "A customer finds you",
-    body: "Local search, a real page for their problem, not a generic homepage.",
+    name: "KhetBuddy",
+    meta: "Farming app for Apple Ber growers in Haryana · 2026 prototype",
+    body: "A bilingual Hindi/English PWA on Next.js and Supabase Postgres (17 tables). A leaf photo goes through a two-step AI diagnosis — Gemini describes it, DeepSeek returns a structured result, and Claude takes over if either step fails — and daily wholesale-market prices are pulled from India’s open-data API and cached in Postgres.",
+    tags: ["Next.js", "Supabase", "Open-data API", "Multi-model AI", "ESP32 sensor design"],
   },
   {
-    title: "They understand and act",
-    body: "Price, coverage and warranty answered before you ask them to commit.",
+    name: "Metabolic Momentum",
+    meta: "Smartwatch app for the Amazfit Active 2 · 2026",
+    body: "Estimates calories left for the day in real time from heart rate, combining the Mifflin-St Jeor and Keytel formulas, with a median filter that drops bad sensor readings. Food lookups use the USDA FoodData Central API. Over 100 unit and integration tests, and profiled for memory and battery on a real watch.",
+    tags: ["Zepp OS", "JavaScript", "Signal filtering", "100+ tests"],
   },
   {
-    title: "The business gets a useful handoff",
-    body: 'A structured job with everything attached — not an email saying "hi, interested".',
+    name: "SkyAptitude",
+    meta: "Aptitude-test trainer for pilot and air-traffic-control applicants · 2026",
+    body: "Eight generated question modules and seven employer presets. A verification script enumerates every possible answer to prove each generated question has exactly one correct one, alongside Playwright end-to-end tests, strict security headers and accessibility fixes.",
+    tags: ["JavaScript", "Vercel serverless", "Playwright", "Generated content, verified"],
+  },
+];
+
+const SKILLS = [
+  {
+    group: "Data",
+    items: [
+      "SQL · PostgreSQL",
+      "Python · Pandas · scikit-learn",
+      "Survival analysis (Kaplan–Meier)",
+      "Power BI",
+      "Excel",
+      "Google Search Console",
+    ],
   },
   {
-    title: "A workflow helps the team respond",
-    body: "Assignment, status, reminders and confirmations that don't depend on memory.",
+    group: "Web & back end",
+    items: [
+      "TypeScript",
+      "React · Next.js",
+      "Node.js",
+      "Tailwind CSS",
+      "Supabase",
+      "REST APIs · webhooks",
+      "Stripe",
+      "Cloudflare Workers",
+    ],
   },
   {
-    title: "The customer gets a better outcome",
-    body: "Which is the only part of this they'll ever describe to a friend.",
+    group: "AI",
+    items: [
+      "Claude Code · Cursor · Codex",
+      "LLM tool calling",
+      "Chat + voice agents",
+      "MCP servers",
+    ],
+  },
+  {
+    group: "Practices & support",
+    items: [
+      "Git · GitHub Actions",
+      "Jest",
+      "Docker",
+      "Vercel",
+      "IT support · UAT",
+      "Apple ACMT + ACiT (2023)",
+    ],
+  },
+];
+
+const EXPERIENCE = [
+  {
+    role: "Founder & Full-Stack Developer",
+    org: "The Travelling Technicians · Burnaby",
+    dates: "Jul 2024 – present",
+    note: "Built and run the booking, payments, dispatch and AI-agent platform behind my doorstep phone and laptop repair business — and do the repairs.",
+  },
+  {
+    role: "Store Supervisor, promoted from Service Technician",
+    org: "London Drugs · Squamish",
+    dates: "Jan 2023 – Jul 2024",
+    note: "Promoted twice in ten months after earning Apple ACMT and ACiT certifications. Ran schedules and escalations, and led a team of eight through the yearly inventory count.",
+  },
+  {
+    role: "Restaurant Operations Manager",
+    org: "Payal Chaat House · Surrey",
+    dates: "2021",
+    note: "Daily operations, staff scheduling, inventory and customer service.",
+  },
+  {
+    role: "Customer Support & Platform Specialist",
+    org: "Intelnet Global Service · New Delhi",
+    dates: "Jun 2018 – Aug 2019",
+    note: "Supported MakeMyTrip travellers and Snapdeal sellers, trained users, reported recurring issues and helped with user acceptance testing.",
+  },
+];
+
+const EDUCATION = [
+  { what: "Post-Degree Diploma, Data Analytics", where: "Langara College, Vancouver · 2020" },
+  {
+    what: "B.Tech, Computer Science and Engineering",
+    where: "Maharshi Dayanand University, India · 2018",
   },
 ];
 
@@ -91,25 +187,6 @@ const LANES = [
   },
 ];
 
-const HOW_I_WORK = [
-  {
-    title: "Understand both sides",
-    body: "The customer's problem and the operator's problem are never the same problem. You have to hear both before you draw anything.",
-  },
-  {
-    title: "Build the smallest useful system",
-    body: "Not the first attractive screen. The smallest thing that changes what happens on a Tuesday afternoon.",
-  },
-  {
-    title: "Connect it end to end",
-    body: "Then walk the whole path myself — as a customer and as staff — before anyone else has to.",
-  },
-  {
-    title: "Improve after launch",
-    body: "Because that's when you find out what's actually true. All four sites above are still mine to keep honest.",
-  },
-];
-
 const HONEST = [
   {
     title: "One source for every number",
@@ -149,36 +226,38 @@ export default function Home() {
           <div className="flex flex-col gap-6">
             <div className="flex items-center gap-2.5">
               <LiveDot />
-              <Label>Four live systems · Burnaby, BC</Label>
+              <Label>Open to work · Burnaby, BC · Available now</Label>
             </div>
 
             <h1 className="font-serif font-normal text-[clamp(38px,5.4vw,64px)] leading-[1.04] tracking-[-0.022em] text-balance text-ink">
-              From first click to follow-up: websites and workflows that{" "}
-              <em className="italic text-accent">run the business</em>.
+              Developer &amp; data analyst. Four systems I built are live, and{" "}
+              <em className="italic text-accent">people use them</em>.
             </h1>
 
-            <p className="text-[clamp(16.5px,1.35vw,18.5px)] leading-[1.62] text-body max-w-[53ch]">
-              I&rsquo;m Manoj. I build the front door, the handoff behind it, and the
-              workflow that follows — websites, booking and lead flows, AI customer
-              service, and the internal plumbing that keeps all of it useful after
-              launch.
+            <p className="text-[clamp(16.5px,1.35vw,18.5px)] leading-[1.62] text-body max-w-[56ch]">
+              I&rsquo;m Manoj. I built and still run the booking platform behind my own
+              repair business — Next.js, PostgreSQL and Stripe, about 9,000 generated
+              pages and 547,000 Google search impressions since February — and a
+              privacy-first data product that estimates immigration wait times for 336
+              monthly users. A computer science degree, a data analytics diploma, and
+              years of IT support and repair behind it.
             </p>
 
             <div className="flex flex-wrap gap-3 pt-0.5">
-              <PrimaryLink href="/work">
-                See the systems
+              <PrimaryLink href="/resume">
+                Download résumé
                 <span aria-hidden="true" className="font-mono text-[13px]">
                   ↓
                 </span>
               </PrimaryLink>
-              <GhostLink href="#contact">Talk about a project</GhostLink>
+              <GhostLink href="#work">See the work</GhostLink>
             </div>
 
             <div className="flex flex-wrap gap-x-6 gap-y-2.5 pt-2 border-t border-line mt-1.5">
               {[
-                "Service · Data · Restaurant · Retail",
-                "Product, automation, support, operations",
-                "Working across BC and remotely",
+                "Developer · Data analyst · Application support",
+                "Full-time · BC or remote",
+                "Canadian PR · no sponsorship needed",
               ].map((line) => (
                 <p key={line} className="font-mono text-[11px] text-faint pt-3.5">
                   {line}
@@ -187,9 +266,6 @@ export default function Home() {
             </div>
 
             <div className="flex flex-wrap gap-x-5 gap-y-2 items-center">
-              <span className="font-mono text-[10px] tracking-[0.13em] uppercase text-ghost">
-                For hiring
-              </span>
               <a
                 href={SITE.linkedin}
                 target="_blank"
@@ -206,20 +282,19 @@ export default function Home() {
               >
                 GitHub ↗
               </a>
-              <Link
-                href="/resume"
+              <a
+                href={gmailComposeUrl("Role for Manoj Kumar")}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-sm font-medium text-accent border-b border-accent-line pb-px hover:text-accent-deep"
               >
-                Résumé →
-              </Link>
-              <span className="font-mono text-[10px] tracking-[0.13em] uppercase text-ghost sm:ml-2">
-                For a project
-              </span>
+                Email ↗
+              </a>
               <Link
                 href="#services"
-                className="text-sm font-medium text-accent border-b border-accent-line pb-px hover:text-accent-deep"
+                className="text-sm text-muted border-b border-line-strong pb-px hover:text-accent sm:ml-2"
               >
-                I need a better website or workflow →
+                Running a business? Client work →
               </Link>
             </div>
           </div>
@@ -228,7 +303,7 @@ export default function Home() {
             <div className="relative aspect-square bg-inset">
               <Image
                 src="/manoj-kumar-portrait.webp"
-                alt="Manoj Kumar, Product and Automation Engineer"
+                alt="Manoj Kumar, developer and data analyst"
                 fill
                 priority
                 sizes="(min-width: 1024px) 42vw, 100vw"
@@ -241,11 +316,11 @@ export default function Home() {
                   Manoj Kumar · Burnaby, BC
                 </Label>
                 <p className="font-serif text-[21px] leading-tight text-ink">
-                  Product &amp; Automation Engineer
+                  {SITE.role}
                 </p>
               </div>
               <p className="max-w-[19ch] text-right font-mono text-[10px] leading-[1.55] tracking-[0.08em] uppercase text-faint">
-                Open to roles and select client work
+                Open to full-time roles · BC or remote
               </p>
             </figcaption>
           </figure>
@@ -254,13 +329,18 @@ export default function Home() {
 
       {/* Proof strip */}
       <section className="border-y border-line bg-sunk">
-        <Shell className="py-6 flex flex-wrap items-center gap-x-7 gap-y-3.5">
-          <p className="font-serif text-[18px] text-[#3b362d] italic">
-            Built for real users, real operations, and real next steps.
-          </p>
-          <ul className="flex flex-wrap gap-2 lg:ml-auto">
-            {PROOF_CHIPS.map((chip) => (
-              <Chip key={chip}>{chip}</Chip>
+        <Shell className="py-7 sm:py-8">
+          <ul className="grid gap-x-8 gap-y-6 grid-cols-2 lg:grid-cols-4">
+            {PROOF_STATS.map((stat) => (
+              <li key={stat.label} className="flex flex-col gap-1">
+                <span className="font-serif text-[clamp(30px,3.4vw,42px)] leading-none tracking-[-0.02em] text-ink">
+                  {stat.value}
+                </span>
+                <span className="text-[14px] leading-[1.45] text-body">{stat.label}</span>
+                <span className="font-mono text-[10px] tracking-[0.08em] uppercase text-faint">
+                  {stat.source}
+                </span>
+              </li>
             ))}
           </ul>
         </Shell>
@@ -272,8 +352,8 @@ export default function Home() {
           <SectionHeading
             index="01"
             eyebrow="Selected systems"
-            title="Four businesses. Four different problems behind the screen."
-            lede="Every one of these is live, and I built all of it myself — the domain, the design, the database, the SEO, the automation, and the maintenance since. Switch the view to see what the business gets, not just what the customer sees."
+            title="Four live systems. Four different problems behind the screen."
+            lede="Every one of these is live, and I built all of it myself — the domain, the design, the database, the SEO, the automation, and the maintenance since. Switch the view to see what the customer sees."
           />
         </Shell>
 
@@ -302,43 +382,173 @@ export default function Home() {
         </Shell>
       </section>
 
-      {/* After the click */}
-      <section id="after" className="scroll-mt-[62px] pt-20 sm:pt-28">
+      {/* Also built */}
+      <section className="pt-16 sm:pt-20">
         <Shell>
-          <SectionHeading
-            index="02"
-            eyebrow="What happens after the click"
-            title="Most websites stop at the form. I care about what happens next."
-            lede="The click is the cheap part. The expensive part is the missed call, the form that lands in an inbox nobody owns, the staff member retyping an address into a third tool, and the customer who books somewhere else while they wait."
-          />
-
-          <ol className="grid gap-px bg-line border border-line rounded-2xl overflow-hidden mt-4">
-            {AFTER_STEPS.map((step, i) => (
-              <li
-                key={step.title}
-                className="bg-canvas p-6 sm:p-7 grid gap-x-5 gap-y-1.5 sm:grid-cols-[auto_minmax(0,26ch)_1fr] sm:items-baseline"
+          <div className="flex flex-col gap-2 pb-6">
+            <Label tone="accent" className="tracking-[0.14em]">
+              Also built
+            </Label>
+            <h3 className="font-serif text-[clamp(24px,2.6vw,32px)] leading-[1.15] text-ink">
+              Smaller projects, same habits.
+            </h3>
+          </div>
+          <div className="grid gap-5 lg:grid-cols-3">
+            {ALSO_BUILT.map((item) => (
+              <div
+                key={item.name}
+                className="border border-line rounded-2xl bg-surface p-6 flex flex-col gap-3"
               >
-                <span className="font-mono text-[11px] text-accent">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <span className="text-[16px] font-medium text-ink">{step.title}</span>
-                <span className="text-[14.5px] leading-[1.6] text-body">
-                  {step.body}
-                </span>
-              </li>
+                <p className="font-serif text-[22px] leading-tight text-ink">{item.name}</p>
+                <p className="font-mono text-[10.5px] tracking-[0.06em] uppercase text-faint">
+                  {item.meta}
+                </p>
+                <p className="text-[14.5px] leading-[1.6] text-body">{item.body}</p>
+                <ul className="flex flex-wrap gap-2 pt-1 mt-auto">
+                  {item.tags.map((tag) => (
+                    <Chip key={tag}>{tag}</Chip>
+                  ))}
+                </ul>
+              </div>
             ))}
-          </ol>
+          </div>
         </Shell>
       </section>
 
-      {/* Services */}
-      <section id="services" className="scroll-mt-[62px] pt-20 sm:pt-28">
+      {/* Skills */}
+      <section id="skills" className="scroll-mt-[62px] pt-20 sm:pt-28">
+        <Shell>
+          <SectionHeading
+            index="02"
+            eyebrow="Skills"
+            title="What I work with every day."
+            lede="Each of these is in use in the live projects above or was part of my data analytics training."
+          />
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {SKILLS.map((block) => (
+              <div
+                key={block.group}
+                className="border border-line rounded-2xl bg-surface p-6 flex flex-col gap-3"
+              >
+                <Label tone="accent" className="tracking-[0.14em]">
+                  {block.group}
+                </Label>
+                <ul className="flex flex-col gap-2 pt-1">
+                  {block.items.map((item) => (
+                    <li key={item} className="text-[14.5px] leading-[1.5] text-body">
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </Shell>
+      </section>
+
+      {/* Experience */}
+      <section id="about" className="scroll-mt-[62px] pt-20 sm:pt-28">
         <Shell>
           <SectionHeading
             index="03"
-            eyebrow="What I can build for you"
-            title="Four kinds of work, depending on where it's stuck."
-            lede="These aren't packages. Most projects are one lane with a bit of the next one, and the honest scoping conversation is free."
+            eyebrow="Experience"
+            title="I&rsquo;ve been the person on the other end of a bad system."
+          />
+          <div className="grid gap-10 lg:grid-cols-[1.3fr_1fr] items-start">
+            <div className="flex flex-col gap-4 max-w-[62ch]">
+              <p className="text-[16px] leading-[1.7] text-body">
+                Before I wrote production code, I did IT support, repaired devices,
+                handled customer service and supervised a team. I&rsquo;ve been the one
+                retyping a booking into a second system, and the one explaining to a
+                customer why nobody called them back. That&rsquo;s why I build the staff
+                side of a system as carefully as the customer side.
+              </p>
+              <p className="text-[16px] leading-[1.7] text-body">
+                Everything on this page — the domains, the design, the database, the SEO,
+                the AI agents and the maintenance since — I built and still run myself. I
+                use AI coding agents (Claude Code, Cursor, Codex) as my main tools, and
+                tests to check what they produce.
+              </p>
+              <p className="text-[16px] leading-[1.7] text-body">
+                I&rsquo;m looking for a full-time developer, data analyst or application
+                support role in BC or remote. Canadian Permanent Resident, available
+                immediately.
+              </p>
+
+              <ol className="flex flex-col border-t border-line mt-4">
+                {EXPERIENCE.map((job) => (
+                  <li
+                    key={job.role}
+                    className="grid gap-x-6 gap-y-1 py-5 border-b border-line sm:grid-cols-[minmax(0,1fr)_auto]"
+                  >
+                    <p className="text-[16px] font-medium text-ink">{job.role}</p>
+                    <p className="font-mono text-[11px] text-faint sm:text-right sm:pt-1">
+                      {job.dates}
+                    </p>
+                    <p className="text-[14px] text-muted sm:col-span-2">{job.org}</p>
+                    <p className="text-[14.5px] leading-[1.6] text-body sm:col-span-2 pt-1">
+                      {job.note}
+                    </p>
+                  </li>
+                ))}
+              </ol>
+            </div>
+
+            <div className="border border-line rounded-2xl bg-surface p-6 flex flex-col gap-4">
+              <Label className="tracking-[0.14em]">Education</Label>
+              <ul className="flex flex-col gap-3">
+                {EDUCATION.map((item) => (
+                  <li key={item.what} className="flex flex-col gap-0.5">
+                    <span className="text-[15px] font-medium text-ink">{item.what}</span>
+                    <span className="text-[13.5px] text-muted">{item.where}</span>
+                  </li>
+                ))}
+              </ul>
+              <div className="pt-4 mt-1 border-t border-line-soft flex flex-col gap-3">
+                <Label className="tracking-[0.14em]">What&rsquo;s underneath it</Label>
+                <ul className="flex flex-wrap gap-2">
+                  {BACKGROUND.map((item) => (
+                    <Chip key={item}>{item}</Chip>
+                  ))}
+                </ul>
+              </div>
+              <div className="flex flex-wrap gap-x-5 gap-y-2 pt-4 mt-1 border-t border-line-soft">
+                <Link href="/resume" className="text-[14.5px] text-accent hover:text-accent-deep">
+                  Résumé (PDF) ↓
+                </Link>
+                <a
+                  href={SITE.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[14.5px] text-accent hover:text-accent-deep"
+                >
+                  LinkedIn ↗
+                </a>
+                <a
+                  href={SITE.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[14.5px] text-accent hover:text-accent-deep"
+                >
+                  GitHub ↗
+                </a>
+              </div>
+              <p className="font-mono text-[11px] text-faint pt-4 mt-1 border-t border-line-soft">
+                {SITE.name} · {SITE.location}
+              </p>
+            </div>
+          </div>
+        </Shell>
+      </section>
+
+      {/* For businesses */}
+      <section id="services" className="scroll-mt-[62px] pt-20 sm:pt-28">
+        <Shell>
+          <SectionHeading
+            index="04"
+            eyebrow="For businesses"
+            title="I also take on select client projects."
+            lede="Two of the four systems above are client work. If your business has real demand but the path from inquiry to action is manual, these are the four kinds of work I do."
           />
 
           <div className="grid gap-5 sm:grid-cols-2">
@@ -371,120 +581,22 @@ export default function Home() {
               </div>
             ))}
           </div>
-
-          <p className="font-serif text-[clamp(18px,2vw,23px)] leading-[1.5] text-ink italic text-balance max-w-[62ch] pt-10">
-            I&rsquo;m usually most useful when a business already has real demand, but
-            the path from inquiry to action is manual, unclear, or inconsistent.
-          </p>
-        </Shell>
-      </section>
-
-      {/* How I work */}
-      <section className="pt-20 sm:pt-28">
-        <Shell>
-          <SectionHeading index="04" eyebrow="How I work" title="How I work." />
-          <ol className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {HOW_I_WORK.map((step, i) => (
-              <li
-                key={step.title}
-                className="border-t-2 border-accent-line pt-4 flex flex-col gap-2"
-              >
-                <span className="font-mono text-[11px] text-accent">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <p className="text-[16px] font-medium text-ink">{step.title}</p>
-                <p className="text-[14.5px] leading-[1.6] text-body">{step.body}</p>
-              </li>
-            ))}
-          </ol>
-        </Shell>
-      </section>
-
-      {/* About */}
-      <section id="about" className="scroll-mt-[62px] pt-20 sm:pt-28">
-        <Shell>
-          <SectionHeading
-            index="05"
-            eyebrow="About"
-            title="I've been the person on the other end of a bad system."
-          />
-          <div className="grid gap-10 lg:grid-cols-[1.3fr_1fr] items-start">
-            <div className="flex flex-col gap-4 max-w-[62ch]">
-              <p className="text-[16px] leading-[1.7] text-body">
-                Before I was building products, I was doing IT support, repairing
-                devices, handling customer service and supervising a team. I&rsquo;ve
-                been the one retyping a booking into a second system, and the one
-                explaining to a customer why nobody called them back.
-              </p>
-              <p className="text-[16px] leading-[1.7] text-body">
-                That&rsquo;s the part I think makes the work different. When I design a
-                booking flow now, I&rsquo;m thinking about the shift on a Tuesday
-                afternoon as much as the homepage. A screen that looks great and
-                creates twenty minutes of manual cleanup isn&rsquo;t finished.
-              </p>
-              <p className="text-[16px] leading-[1.7] text-body">
-                Everything on this page — the domains, the design, the database, the
-                SEO, the agents, the maintenance since — I built and still run myself.
-                Computer science and data analytics behind it; support, repair and
-                operations underneath it.
-              </p>
-              <p className="text-[16px] leading-[1.7] text-body">
-                I&rsquo;m open to product engineering, AI and workflow automation,
-                technical implementation and support engineering roles in BC or
-                remotely — and I take on client work directly.
-              </p>
-            </div>
-
-            <div className="border border-line rounded-2xl bg-surface p-6 flex flex-col gap-4">
-              <Label className="tracking-[0.14em]">What&rsquo;s underneath it</Label>
-              <ul className="flex flex-wrap gap-2">
-                {BACKGROUND.map((item) => (
-                  <Chip key={item}>{item}</Chip>
-                ))}
-              </ul>
-              <div className="flex flex-wrap gap-x-5 gap-y-2 pt-4 mt-1 border-t border-line-soft">
-                <a
-                  href={SITE.linkedin}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-[14.5px] text-accent hover:text-accent-deep"
-                >
-                  LinkedIn ↗
-                </a>
-                <a
-                  href={SITE.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-[14.5px] text-accent hover:text-accent-deep"
-                >
-                  GitHub ↗
-                </a>
-                <Link href="/resume" className="text-[14.5px] text-accent hover:text-accent-deep">
-                  Résumé →
-                </Link>
-              </div>
-              <p className="font-mono text-[11px] text-faint pt-4 mt-1 border-t border-line-soft">
-                {SITE.name} · {SITE.location}
-              </p>
-            </div>
-          </div>
         </Shell>
       </section>
 
       {/* Contact */}
       <section id="contact" className="scroll-mt-[62px] pt-20 sm:pt-28">
         <Shell>
-          <SectionHeading index="06" eyebrow="Contact" title="Contact." />
+          <SectionHeading index="05" eyebrow="Contact" title="Contact." />
           <div className="border border-line rounded-2xl bg-sunk p-6 sm:p-10">
             <p className="font-serif text-[clamp(24px,3vw,38px)] leading-[1.18] tracking-[-0.015em] text-balance text-ink max-w-[26ch]">
-              If your customers are waiting on a reply, your team is copying
-              information between tools, or your website isn&rsquo;t pulling its weight
-              — <em className="italic text-accent">tell me where it gets stuck</em>.
+              Hiring a developer or data analyst?{" "}
+              <em className="italic text-accent">Let&rsquo;s talk.</em>
             </p>
             <p className="text-[15.5px] leading-[1.65] text-body max-w-[56ch] pt-5">
-              I&rsquo;ll tell you what I&rsquo;d do about it. That conversation costs
-              nothing, and I&rsquo;ll say so if it isn&rsquo;t work I&rsquo;m the right
-              person for.
+              A few lines about the role is plenty, and my résumé is one click away. If
+              you run a business and need a website or workflow fixed, the same email
+              works.
             </p>
 
             <div className="grid gap-10 lg:gap-14 lg:grid-cols-[1fr_1.1fr] pt-9 mt-8 border-t border-line">
@@ -500,7 +612,7 @@ export default function Home() {
                     {SITE.email}
                   </a>
                   <p className="text-[13.5px] text-muted">
-                    Best for scoping a project or a role.
+                    Best for a role or a project.
                   </p>
                 </div>
 
@@ -519,17 +631,20 @@ export default function Home() {
 
                 <div className="flex flex-col gap-1.5">
                   <Label className="tracking-[0.14em]">Or start here</Label>
+                  <Link href="/resume" className="text-[14.5px] text-body hover:text-accent w-fit">
+                    Download my résumé &rarr;
+                  </Link>
                   <Link
                     href="/work/travelling-technicians"
                     className="text-[14.5px] text-body hover:text-accent w-fit"
                   >
-                    Hiring? Open the flagship system map &rarr;
+                    Read the flagship case study &rarr;
                   </Link>
                   <Link
                     href="#services"
                     className="text-[14.5px] text-body hover:text-accent w-fit"
                   >
-                    Running a business? See the four lanes &rarr;
+                    Running a business? See client work &rarr;
                   </Link>
                 </div>
               </div>

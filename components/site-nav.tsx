@@ -6,9 +6,9 @@ import { SITE } from "@/lib/projects";
 
 const LINKS = [
   { href: "/work", label: "Work" },
-  { href: "/#after", label: "After the click" },
-  { href: "/#services", label: "Services" },
-  { href: "/#about", label: "About" },
+  { href: "/#skills", label: "Skills" },
+  { href: "/#about", label: "Experience" },
+  { href: "/resume", label: "Résumé" },
 ];
 
 export function SiteNav() {

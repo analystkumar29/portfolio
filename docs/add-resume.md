@@ -1,7 +1,7 @@
 # Add or replace the public résumé
 
-No résumé PDF is committed yet. This keeps an unverified or tailored résumé from
-being linked publicly.
+A general one-page résumé (Developer & Data Analyst, November 2026) is published at
+`public/resume/manoj-kumar-resume.pdf`. Keep it general — tailored résumés stay private.
 
 To publish the file behind the existing `/resume` link:
 

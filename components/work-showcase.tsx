@@ -15,7 +15,7 @@ type View = "customer" | "operator";
  * the state for all four projects rather than each managing its own.
  */
 export function WorkShowcase() {
-  const [view, setView] = useState<View>("customer");
+  const [view, setView] = useState<View>("operator");
   const isCustomer = view === "customer";
 
   return (

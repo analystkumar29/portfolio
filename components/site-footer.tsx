@@ -12,8 +12,8 @@ export function SiteFooter() {
               {SITE.name}
             </p>
             <p className="text-[14.5px] leading-[1.6] text-body max-w-[38ch]">
-              I build the front door, the handoff behind it, and the workflow that
-              follows.
+              Developer and data analyst in Burnaby, BC. I build web systems that
+              businesses run on, and measure whether they work.
             </p>
             <a
               href={gmailComposeUrl()}
@@ -44,10 +44,10 @@ export function SiteFooter() {
               All work
             </Link>
             <Link href="/#services" className="text-[14.5px] text-body hover:text-accent w-fit">
-              What I can build for you
+              Client work
             </Link>
             <Link href="/#about" className="text-[14.5px] text-body hover:text-accent w-fit">
-              About
+              Experience
             </Link>
             <Link href="/#contact" className="text-[14.5px] text-body hover:text-accent w-fit">
               Contact

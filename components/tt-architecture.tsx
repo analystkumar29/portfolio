@@ -34,7 +34,7 @@ const DB_CARDS = [
   {
     x: 86,
     title: "Source of truth",
-    rows: ["service_locations · 13", "device_models · 148", "dynamic_pricing · 720"],
+    rows: ["service_locations · 13", "device_models · phone + Mac", "dynamic_pricing · 3 tiers"],
     accent: false,
   },
   {
@@ -50,7 +50,7 @@ const DB_CARDS = [
   {
     x: 774,
     title: "The job record",
-    rows: ["bookings · TEC-… refs", "warranties · invoices", "conversations"],
+    rows: ["bookings · TTR-… refs", "warranties · invoices", "conversations"],
     accent: false,
   },
 ];
@@ -192,7 +192,7 @@ export function TTArchitecture() {
             {/* ---------- Database band ---------- */}
             <rect x="60" y="218" width="990" height="252" rx="18" fill="#1c1a15" stroke="#302d25" />
             <text x="84" y="250" fill="#7fc0a4" fontFamily={MONO} fontSize="12" letterSpacing="1.6">
-              ONE POSTGRES · 86 TABLES · 57 TRIGGERS · 12 VIEWS
+              ONE POSTGRES · TRIGGERS KEEP EVERY PAGE IN SYNC
             </text>
 
             {DB_CARDS.map((card) => (
