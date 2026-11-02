@@ -43,6 +43,9 @@ export function SiteFooter() {
             <Link href="/work" className="text-[14.5px] text-body hover:text-accent w-fit">
               All work
             </Link>
+            <Link href="/notes" className="text-[14.5px] text-body hover:text-accent w-fit">
+              Engineering notes
+            </Link>
             <Link href="/#services" className="text-[14.5px] text-body hover:text-accent w-fit">
               Client work
             </Link>

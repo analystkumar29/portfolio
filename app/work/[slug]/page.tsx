@@ -8,6 +8,7 @@ import { EvidenceGallery } from "@/components/evidence-gallery";
 import { TTArchitecture } from "@/components/tt-architecture";
 import { Label, LiveDot, Shell } from "@/components/ui";
 import { caseStudySchema } from "@/lib/schema";
+import { NOTES } from "@/lib/notes";
 import { JsonLd } from "@/components/json-ld";
 
 export function generateStaticParams() {
@@ -103,6 +104,15 @@ export default async function CaseStudy({
           </dl>
 
           <div className="flex flex-wrap gap-4">
+            {NOTES.filter((note) => note.projectSlug === project.slug).map((note) => (
+              <Link
+                key={note.slug}
+                href={`/notes/${note.slug}`}
+                className="inline-flex items-center gap-1.5 text-[15px] font-medium text-ink border-b border-accent-line pb-0.5 transition-colors hover:text-accent hover:border-accent"
+              >
+                Engineering note: {note.title}
+              </Link>
+            ))}
             {project.links.map((link) => (
               <a
                 key={link.href}

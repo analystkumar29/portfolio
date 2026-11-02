@@ -12,6 +12,7 @@ import {
 } from "@/components/ui";
 import { gmailComposeUrl, SITE } from "@/lib/projects";
 import { homeSchema } from "@/lib/schema";
+import { NOTES } from "@/lib/notes";
 import { JsonLd } from "@/components/json-ld";
 
 const PROOF_STATS = [
@@ -412,6 +413,43 @@ export default function Home() {
               </div>
             ))}
           </div>
+        </Shell>
+      </section>
+
+      {/* Notes */}
+      <section className="pt-16 sm:pt-20">
+        <Shell>
+          <div className="flex flex-wrap items-end justify-between gap-4 pb-6">
+            <div className="flex flex-col gap-2">
+              <Label tone="accent" className="tracking-[0.14em]">
+                Engineering notes
+              </Label>
+              <h3 className="font-serif text-[clamp(24px,2.6vw,32px)] leading-[1.15] text-ink">
+                The code is private. The problems aren&rsquo;t.
+              </h3>
+            </div>
+            <Link href="/notes" className="text-[14.5px] text-accent hover:text-accent-deep">
+              All notes →
+            </Link>
+          </div>
+          <ul className="grid gap-5 lg:grid-cols-3">
+            {NOTES.map((note) => (
+              <li key={note.slug}>
+                <Link
+                  href={`/notes/${note.slug}`}
+                  className="group h-full border border-line rounded-2xl bg-surface p-6 flex flex-col gap-3 hover:border-accent-line"
+                >
+                  <span className="font-mono text-[10.5px] tracking-[0.06em] uppercase text-faint">
+                    {note.project} · {note.readingMinutes} min
+                  </span>
+                  <span className="font-serif text-[21px] leading-[1.25] text-ink group-hover:text-accent">
+                    {note.title}
+                  </span>
+                  <span className="text-[14.5px] leading-[1.6] text-body">{note.dek}</span>
+                </Link>
+              </li>
+            ))}
+          </ul>
         </Shell>
       </section>
 
