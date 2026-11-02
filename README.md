@@ -1,6 +1,10 @@
 # Manoj Kumar — Portfolio
 
-Personal portfolio site: **Manoj Kumar, Developer & Data Analyst** (Burnaby, BC).
+[![CI](https://github.com/analystkumar29/portfolio/actions/workflows/ci.yml/badge.svg)](https://github.com/analystkumar29/portfolio/actions/workflows/ci.yml)
+
+Live at **[manojkumar-ca.vercel.app](https://manojkumar-ca.vercel.app)**. Personal portfolio site: **Manoj Kumar, Developer & Data Analyst** (Burnaby, BC).
+
+
 
 Built with Next.js 16 (App Router), React 19 and Tailwind CSS v4. Every route is
 prerendered as static HTML except `/resume`, which checks for the PDF at request time.
@@ -44,6 +48,21 @@ npm run dev     # http://localhost:3000
 npm run build   # production build
 npm run lint
 ```
+
+
+## How it's built
+
+I build with AI coding agents (Claude Code) as a pair programmer: I write the brief and
+the content rules, review every change, and check the result in the browser before it
+ships. Commits made that way carry a `Co-Authored-By` line, which is why GitHub lists
+Claude as a contributor. `AGENTS.md` / `CLAUDE.md` are the instructions the agent reads.
+
+Every push runs lint, a type-check and a production build in GitHub Actions.
+
+## Licence
+
+The code is MIT-licensed. The written content, case studies, photos, screenshots and
+résumé are not — see [`LICENSE`](LICENSE).
 
 ## Deployment
 
