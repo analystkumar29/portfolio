@@ -102,7 +102,7 @@ export function caseStudySchema(project: Project) {
         about: {
           "@type": "CreativeWork",
           name: project.name,
-          url: project.url,
+          url: project.live ? project.url : undefined,
           abstract: project.outcome,
         },
         mentions: project.stack.map((tool) => ({ "@type": "Thing", name: tool })),
