@@ -289,12 +289,12 @@ export const PROJECTS: Project[] = [
     next:
       "The honest gap is coverage: two streams are published because the rest are too thin. More reported timelines is the only fix, and getting them without resorting to the engagement mechanics the product deliberately avoids is the actual design problem.",
     evidence: {
-      src: "/evidence/it-spousal.jpg",
+      src: "/evidence/it-timeline.jpg",
       width: 1547,
       height: 784,
-      alt: "The public spousal sponsorship timeline page, showing IRCC official estimates beside stage-by-stage reported figures with ranges and sample sizes.",
+      alt: "The signed-in timeline: queue position, two disagreeing completion estimates with an explanation, and the applicant\u2019s logged milestones.",
       caption:
-        "The public pages work without an account: IRCC\u2019s number, then what applicants reported at each stage, each row carrying its range and its sample size (captured July 2026).",
+        "The signed-in product, on a test file. Two estimates are shown side by side precisely because they disagree \u2014 and the page explains why rather than picking the friendlier one.",
     },
     gallery: [
       {
@@ -320,6 +320,14 @@ export const PROJECTS: Project[] = [
         alt: "In-product notice explaining that comparisons switch on only once 25 other people in the same month have reported.",
         caption:
           "The privacy floor explained to the user, in the product, at the moment it affects them: comparisons switch on once 25 others in the same cohort have reported, because below that a figure could describe a person. Note the footer link \u2014 \u201cHow wrong we have been.\u201d",
+      },
+      {
+        src: "/evidence/it-spousal.jpg",
+        width: 1547,
+        height: 784,
+        alt: "The public spousal sponsorship timeline page, showing IRCC official estimates beside stage-by-stage reported figures with ranges and sample sizes.",
+        caption:
+          "The public pages do the same job without an account: IRCC\u2019s number, then what applicants reported at each stage, each row carrying its range and its sample size (captured July 2026).",
       },
       {
         src: "/evidence/it-methodology.jpg",
