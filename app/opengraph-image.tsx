@@ -6,7 +6,7 @@ export const contentType = OG_CONTENT_TYPE;
 
 export default function Image() {
   return ogCard({
-    eyebrow: "Four live systems",
+    eyebrow: "Developer & data analyst",
     title: "Websites and workflows that run the business.",
   });
 }

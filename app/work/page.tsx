@@ -9,7 +9,7 @@ import { JsonLd } from "@/components/json-ld";
 export const metadata: Metadata = {
   title: "Work",
   description:
-    "Four live systems — a field-service platform, a privacy-led data product, a multi-location brand platform, and a community donation engine.",
+    "Four systems — a field-service platform, a privacy-led data product, a multi-location restaurant website, and a thrift store's donation site.",
   alternates: { canonical: "/work" },
 };
 
@@ -21,10 +21,10 @@ export default function WorkIndex() {
         <div className="flex flex-col gap-5 max-w-[64ch]">
           <Label className="tracking-[0.14em]">Selected systems</Label>
           <h1 className="font-serif font-normal text-[clamp(34px,4.6vw,54px)] leading-[1.06] tracking-[-0.02em] text-balance text-ink">
-            Four businesses. Four different problems behind the screen.
+            Four systems. Four different problems behind the screen.
           </h1>
           <p className="text-[17px] leading-[1.65] text-body">
-            Each of these is live. Each case study is written the same way: the real
+            Each case study is written the same way: the real
             business problem, what got built, both sides of the handoff, the decisions
             that took judgment, and what I&rsquo;d improve next.
           </p>

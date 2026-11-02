@@ -230,8 +230,8 @@ export default function Home() {
             </div>
 
             <h1 className="font-serif font-normal text-[clamp(38px,5.4vw,64px)] leading-[1.04] tracking-[-0.022em] text-balance text-ink">
-              Developer &amp; data analyst. Four systems I built are live, and{" "}
-              <em className="italic text-accent">people use them</em>.
+              Developer &amp; data analyst. I build systems that{" "}
+              <em className="italic text-accent">real people use</em>.
             </h1>
 
             <p className="text-[clamp(16.5px,1.35vw,18.5px)] leading-[1.62] text-body max-w-[56ch]">
@@ -352,8 +352,8 @@ export default function Home() {
           <SectionHeading
             index="01"
             eyebrow="Selected systems"
-            title="Four live systems. Four different problems behind the screen."
-            lede="Every one of these is live, and I built all of it myself — the domain, the design, the database, the SEO, the automation, and the maintenance since. Switch the view to see what the customer sees."
+            title="Four systems. Four different problems behind the screen."
+            lede="I built every one of these end to end — the design, the database, the SEO and the automation — and I still run the two that are my own. Switch the view to see what the customer sees."
           />
         </Shell>
 

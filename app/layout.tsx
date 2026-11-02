@@ -39,7 +39,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: `${SITE.name} — ${SITE.role}`,
     description:
-      "Developer and data analyst in Burnaby, BC, with four live systems in production. Open to full-time roles.",
+      "Developer and data analyst in Burnaby, BC, who builds and runs production web systems. Open to full-time roles.",
     type: "website",
     locale: "en_CA",
     siteName: SITE.name,

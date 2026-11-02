@@ -359,7 +359,7 @@ export const PROJECTS: Project[] = [
     url: "https://www.indianburgerjoint.com/",
     category: "Multi-location restaurant website",
     timeframe: "June 2025",
-    live: true,
+    live: false,
     ownership: "Client work",
     role: "Client project for a friend's restaurant group — designed and built the website in a few days: a food-first homepage, location cards with per-location ordering, and a separate franchise page.",
     outcome:
@@ -408,7 +408,7 @@ export const PROJECTS: Project[] = [
       { value: "Days", label: "from brief to launch, June 2025", source: "project history" },
     ],
     validation: [
-      "Live, with ordering and franchise routes both reachable from the homepage.",
+      "Ordering and franchise routes both reachable from the homepage (as captured in July 2026).",
       "The franchise page carries the same brand identity into a completely different conversion journey.",
     ],
     next:
@@ -439,10 +439,7 @@ export const PROJECTS: Project[] = [
           "The franchise route is a separate page with its own pacing and its own two calls to action. A dinner order and a partnership enquiry never compete for the same button.",
       },
     ],
-    links: [
-      { label: "Visit indianburgerjoint.com", href: "https://www.indianburgerjoint.com/" },
-      { label: "See the franchise funnel", href: "https://www.indianburgerjoint.com/franchise" },
-    ],
+    links: [],
   },
   {
     slug: "raba-thrift",

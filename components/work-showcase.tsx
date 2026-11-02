@@ -124,17 +124,19 @@ export function WorkShowcase() {
                     →
                   </span>
                 </Link>
-                <a
-                  href={project.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 text-[14px] text-muted transition-colors hover:text-accent"
-                >
-                  Visit {project.domain}
-                  <span aria-hidden="true" className="font-mono text-[11px]">
-                    ↗
-                  </span>
-                </a>
+                {project.live ? (
+                  <a
+                    href={project.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 text-[14px] text-muted transition-colors hover:text-accent"
+                  >
+                    Visit {project.domain}
+                    <span aria-hidden="true" className="font-mono text-[11px]">
+                      ↗
+                    </span>
+                  </a>
+                ) : null}
               </div>
             </div>
           </article>
