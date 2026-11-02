@@ -45,7 +45,7 @@ function Block({ block }: { block: NoteBlock }) {
     case "code":
       return (
         <pre className="overflow-x-auto rounded-xl border border-line bg-inset p-4 text-[13px] leading-[1.6]">
-          <code className="font-mono text-ink">{block.code}</code>
+          <code className="font-mono text-ink [font-variant-ligatures:none]">{block.code}</code>
         </pre>
       );
     default:
