@@ -80,7 +80,7 @@ export const PROJECTS: Project[] = [
     problem:
       "A mobile repair business competes against every shop with a storefront and a Google listing. To be found at all, you need a page for the exact thing someone typed — \"iPhone 14 screen repair in Surrey\" — and there are thousands of those combinations. Writing them by hand is impossible, and generating them badly is worse than not having them. Then the harder half starts: a booking has to reach a technician, the customer has to know what it costs before they commit, and somebody has to issue the warranty and collect the review without retyping anything.",
     built:
-      "Three machines that feed each other. An SEO page factory turns a routes table in Postgres into roughly 9,000 addressable pages from a single catch-all template — about 5,000 prebuilt at deploy time and 6,000 published in the sitemap, with the rest rendering on first request and caching. A booking engine takes a three-step booking, prices it from a three-tier model, and settles it through Stripe. An operations layer gives staff a real-time admin surface and technicians a PWA where they claim jobs — with an AI chat assistant and AI phone receptionist calling the same database tools the admin runs on. A dedicated Google Business Profile MCP server lets AI workflows work with a real business surface rather than a disconnected prompt.",
+      "Three machines that feed each other. An SEO page factory turns a routes table in Postgres into roughly 9,000 addressable pages from a single catch-all template — about 5,000 prebuilt at deploy time and 6,000 published in the sitemap, with the rest rendering on first request and caching. A booking engine takes a three-step booking, prices it from a three-tier model, and settles it through Stripe. An operations layer gives staff a real-time admin surface and technicians a PWA where they claim jobs — with an AI chat assistant and AI phone receptionist calling the same database tools the admin runs on. The same tools are also published as a public MCP server at /api/mcp, so outside AI assistants can look up real prices, coverage and open slots instead of guessing from a scraped page.",
     customerJourney: [
       { label: "Find the local page", note: "city × service × device" },
       { label: "Price + warranty", note: "before committing" },
@@ -135,7 +135,7 @@ export const PROJECTS: Project[] = [
       "Stripe",
       "Resend",
       "AI chat (DeepSeek) + voice receptionist (Retell)",
-      "Google Business Profile MCP server",
+      "Public MCP server (read-only, rate-limited)",
       "Web push, QR codes + IndexNow",
       "Technician PWA",
     ],
@@ -152,7 +152,7 @@ export const PROJECTS: Project[] = [
       "Structured FAQ data on roughly 3,300 pages for rich-result eligibility.",
       "Warranty coverage is self-serve: a customer can check it months later with a warranty number or booking reference, with no account.",
       "Payments run through Stripe with pay-later links, and Affirm, Klarna and Afterpay offered at checkout.",
-      "The AI layer includes a dedicated Google Business Profile MCP server, so business-profile work can use real tools instead of a generic chat script.",
+      "The public MCP endpoint exposes nine read-only tools, rate-limited per visitor; customer data and anything that writes to the database are left off it until they sit behind sign-in.",
       "Still maintained by me — the pricing, the routes and the agents are mine to keep honest.",
     ],
     next:
